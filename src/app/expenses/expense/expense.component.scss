@@ -1,0 +1,100 @@
+.expense_desc {
+    font-weight: 500;
+}
+
+.expense_income {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    .expense_left {
+        display: flex;
+        flex-direction: column;
+        // flex: 1 1 auto;
+        .expense_amount {
+            font-weight: 600;
+        }
+        .expense_type {
+            font-size: 11px;
+            color: #828282;
+        }
+    }
+    .expense_right {
+        flex: 3 3 auto;
+    }
+}
+.expense_icon_wrapper {
+    background: #DDF3FF;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+        font-size: 18px;
+       
+    }
+    .fa-sack-dollar {
+        color: #3db5f6;
+    }
+}
+.expense_icon_wrapper.due_amount {
+    background: rgba(255, 218, 218, 0.49);
+    color: #FF0000;
+}
+.select_month {
+    // width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    &:focus {
+        outline: none;
+        border-color: #9984f8;
+    }
+}
+
+.income {
+    background: #CFFFCE;
+}
+.expense {
+    background: #FFD1D1;
+}
+.progress {
+    height: 13px;
+    border-radius: 100px;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 3px;
+    .bg-success {
+        width: 25%;
+        background-color: #70D46E !important;
+        border-radius: 100px;
+        height: 11px;
+    }
+    .bg-warning {
+        width: 25%;
+        background-color: #DD7C7C !important;
+        border-radius: 100px;
+        height: 11px;
+    }
+}
+
+.expenses_heading {
+    span {
+        font-size: 19px;
+        font-weight: 500;
+        position: relative;
+        &::before {
+            content: "";
+            position: absolute;
+            height: 3.5px;
+            width: 30px;
+            background: #36a2eb;
+            left: 0;
+            bottom: -3px;
+        }
+    }
+}

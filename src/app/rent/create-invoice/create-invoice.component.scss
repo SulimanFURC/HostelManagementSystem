@@ -1,0 +1,27 @@
+.invoice-total-box {
+    .invoice-total-inner {
+        p {
+            margin: 0 0 11px 0;
+            position: relative;
+            font-weight: 500;
+            color: #878A99;
+            font-size: 14px;
+            span {
+                float: right;
+                color: #3F4254;
+                font-weight: 600;
+            }
+        }
+    }
+    .invoice-total-footer {
+        h4 {
+            margin-bottom: 0;
+            font-weight: 600;
+            font-size: 16px;
+            color: #3F4254;
+            span {
+                float: right;
+            }
+        }
+    }
+}

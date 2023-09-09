@@ -1,0 +1,37 @@
+@import "../../../variable.scss";
+
+
+.gap-10{
+    gap: 10px;
+}
+
+.sidebar_open {
+    width: 210px; 
+    height: 100vh;
+}
+
+.sidebar_close {
+    width: 0; 
+    height: 100vh;
+}
+
+.open_close_transition {
+    transition: 0.3s ease-in-out;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: $base-color;
+    padding: 7px 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-link {
+    padding: 7px 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

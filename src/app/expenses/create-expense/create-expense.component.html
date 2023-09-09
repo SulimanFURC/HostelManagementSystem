@@ -1,0 +1,91 @@
+<div class="rent_form_wrapper">
+    <div class="container">
+      <div class="title mx-2">Create Expense</div>
+      <div class="student_form_wrapper d-flex align-items-start gap-3 mt-4">
+        <div class="form mx-2">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+
+              <div class="col-md-4 form-input mb-3">
+                <span class="details">Expense ID</span>
+                <input type="text" placeholder="Exp-0002" formControlName="Expense_id">
+              </div>
+  
+              <div class="col-md-4 form-input mb-3">
+                <span class="details">Date</span>
+                <input type="text"
+                  placeholder="Select Expense Date"
+                  class="date-selector ps-2"
+                  bsDatepicker
+                  formControlName="Expense_date"
+                  [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
+              </div>
+
+              <div class="col-md-4 form-input mb-3">
+                <span class="details">Expense Name</span>
+                <select name="fixed_expenses" id="fixed_expenses" formControlName="Fixed_Expense">
+                  <option value="electritybill1">Electricty Bill for hostel 1</option>
+                  <option value="electritybill2">Electricty Bill for hostel 2</option>
+                  <option value="gasBill">Gas Bill</option>
+                  <option value="internetBill">Internet Bill</option>
+                  <option value="hostelRent">Hostel Rent</option>
+                  <option value="securityFee">Security Fee</option>
+                  <option value="garbadeCollection">Garbage Collection Fee</option>
+                  <option value="waterTanker">Water Tanker</option>
+                  <option value="other">Other</option>
+              </select>
+              </div>
+
+              <div class="col-md-4 form-input mb-3" *ngIf="form.get('Fixed_Expense')?.value === 'other'">
+                <span class="details">Other Expense</span>
+                <input type="text" placeholder="Write other expense name" formControlName="other_expense">
+              </div>
+
+              <ng-container *ngIf="form.get('Fixed_Expense')?.value == 'waterTanker'">
+                <div class="col-md-4 form-input mb-3">
+                  <span class="details">Amount Paid <span class="tiny">(Amount Paid for water tanker)</span></span>
+                  <input type="text" placeholder="Write other expense name" formControlName="tankerAmount_paid">
+                </div>
+                <div class="col-md-4 form-input mb-3">
+                  <span class="details">Amount Due <span class="tiny">(Total Due Amount)</span></span>
+                  <input type="text" placeholder="Write other expense name" formControlName="tankerAmount_due">
+                </div>
+              </ng-container>
+
+              <div class="col-md-4 form-input mb-3" *ngIf="form.get('Fixed_Expense')?.value != 'waterTanker'">
+                <span class="details">Expense Amount</span>
+                <input type="text" placeholder="1200" formControlName="Expense_amount">
+              </div>
+
+              <div class="col-md-4 form-input mb-3">
+                <span class="details">Payment Mode</span>
+                <select name="paymentmode" id="paymentmode" formControlName="Payment_mode">
+                    <option value="cash">Cash</option>
+                    <option value="easypaisa">Easypaisa</option>
+                    <option value="jazzcash">JazzCash</option>
+                    <option value="banktransfer">Bank Transfer</option>
+                </select>
+              </div> 
+
+              <div class="col-md-12 form-input mb-3">
+                <span class="details">Description <span class="tiny">(Write a short description about expense)</span></span>
+                <textarea name="expense_desc" id="exp_desc" cols="30" rows="5" formControlName="Expense_description"></textarea>
+              </div>
+
+              <div class="col-md-6 form-input mb-3">
+                <span class="details">Expense Attachment <span class="tiny">(If any)</span></span>
+                <input type="file" placeholder="" class="cnic_pic" formControlName="Expense_pic">
+              </div>
+
+              
+            </div>
+            <div class="row">
+              <div class="d-flex">
+                <button type="submit" class="create_btn">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

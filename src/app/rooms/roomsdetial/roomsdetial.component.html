@@ -1,0 +1,102 @@
+<div class="rooms_wrapper custom_card">
+  <div class="table_filters mb-3">
+    <div class="search_wrappper">
+      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>      <input type="text" name="search" placeholder="Search">
+    </div>
+    <div class="filters">
+      <div [class.active_filter]="activeFilter === 'all'" (click)="setActiveFilter('all')" class="d-flex align-items-center gap-1 single_filter">
+        <span>All Rooms</span>
+        <span class="filter-all">52</span>
+      </div>
+      <div [class.active_filter]="activeFilter === 'active'" (click)="setActiveFilter('active')" class="d-flex align-items-center gap-1 single_filter">
+        <span>Active</span> 
+        <span class="filter-active">52</span>
+      </div>
+      <div [class.active_filter]="activeFilter === 'inactive'" (click)="setActiveFilter('inactive')" class="d-flex align-items-center gap-1 single_filter">
+        <span>InActive</span> 
+        <span class="filter-inactive">52</span>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex align-items-center justify-content-end mb-3">
+    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="create_btn">Create Room</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Room Number</th>
+          <th scope="col">Floor</th>
+          <th scope="col">Capacity</th>
+          <th scope="col">No of Students</th>
+          <th scope="col">Attach Bath</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">RN-1</th>
+          <td>First Floor</td>
+          <td>2</td>
+          <td>2</td>
+          <td> <span class="bg-success">Yes</span></td>
+          <td>This is two sitter room with basic amenities</td>
+        </tr>
+        <tr>
+          <th scope="row">RN-2</th>
+          <td>Ground Floor</td>
+          <td>2</td>
+          <td>2</td>
+          <td><span class="bg-danger-light">No</span></td>
+          <td>This is two sitter room with basic amenities</td>
+        </tr>
+        <tr>
+          <th scope="row">RN-3</th>
+          <td>First Floor</td>
+          <td>3</td>
+          <td>3</td>
+          <td><span class="bg-success">Yes</span></td>
+          <td>This is Three sitter room with basic amenities</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-my-modal>
+  <div class="rent_form_wrapper">
+    <div class="container">
+        <div class="title mb-3">Create Room</div>
+        <form action="#">
+          <div class="user__details row">
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Room No</span>
+              <input type="text" placeholder="RN-01" required>
+            </div>
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Floor</span>
+              <input type="text" placeholder="Ground Floor">
+            </div>
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Capacity</span>
+              <input type="text" placeholder="02" >
+            </div>
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Attach Bath</span>
+              <select name="room_bath" id="roomBath">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div class="input__box col-lg-12 mb-3">
+              <span class="details">Description</span>
+              <textarea name="" id="" cols="30" rows="5"></textarea>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-start mt-3 mb-3">
+            <button type="submit" class="create_btn">Submit</button>
+          </div>
+        </form>
+      </div>
+</div>
+</app-my-modal>

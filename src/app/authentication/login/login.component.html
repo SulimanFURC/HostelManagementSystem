@@ -1,0 +1,43 @@
+<div class="main-wrapper login-body">
+    <div class="login-wrapper h-100">
+        <div class="container d-flex align-items-center justify-content-center h-100">
+            <div class="loginbox">
+                <div class="login-right custom_card">
+                    <div class="login-right-wrap">
+                        <h1>Login</h1>
+                        <p class="account-subtitle">Access to our dashboard</p>
+
+                        <form>
+                            <div class="form-group mb-3">
+                                <label class="details">Email Address</label>
+                                <input type="text">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="details">Password</label>
+                                <input type="text">
+                            </div>
+                            <div class="form-group">
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="checkbox" class="custom-control-input" id="cb1">
+                                            <label class="remember" for="cb1">Remember me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <a class="forgot-link" routerLink="forgot-password">Forgot Password ?</a>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group mb-2">
+                                <button class="create_btn w-100 pt-2 pb-2" (click)="userlogin()">Login</button>
+                            </div>
+                        </form>
+                        <div class="text-center dont-have">Don't have an account yet? <a routerLink="signup">Signup</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

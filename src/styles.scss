@@ -1,1 +1,379 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
+
+@import "./variable.scss";
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+// scroller ui
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #d4d4d4 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #d4d4d4;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
+
+// scroller ui
+
+
+.f-500 {
+    font-weight: 500;
+}
+
+.fa-arrow-trend-up {
+    color: #18ff58;
+    font-size: 15px;
+}
+.fa-arrow-trend-down {
+    color: #ff5d18;
+    font-size: 15px;
+}
+
+
+span {
+    font-size: 13px;
+    line-height: 1.2;
+}
+h1 {
+    font-size: 22px;
+    margin: 0.5rem 0;
+    font-weight: 600;
+}
+
+strong {
+    font-size: 14px;
+}
+p {
+    font-size: 14px;
+}
+
+.custom_card {
+    background: white;
+    padding: 15px 10px;
+    border-radius: 11px;
+    width: 100%;
+    height: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 20px;
+    .card_heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .heading {
+            color: #000;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            text-transform: capitalize;
+        }
+        .view_more{
+            text-transform: capitalize;
+            font-size: 12px;
+            font-weight: 500;
+            color: $base-color;
+            cursor: pointer;
+        }
+    }
+}
+
+.dropdown-menu {
+    border: 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 7px 0px;
+    padding: 10px 4px;
+
+    .dropdown-item {
+        font-size: 14px;
+        cursor: pointer;
+        &:hover {
+            background: $hover-color;
+            border-radius: 7px;
+            color: white;
+        }
+    }
+}
+.dropdown-toggle::after {
+    display: none;
+}
+
+
+// mixin's 
+
+@mixin table_badge_style {
+    white-space: nowrap;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 4px 8px;
+    text-overflow: ellipsis;
+    line-height: 1.25rem;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+@mixin common_style {
+    border-radius: 100px;
+    padding: 0 3px;
+    font-weight: 500;
+    border-color: #91caff;
+    line-height: 1.6;
+    font-size: 12px;
+}
+// mixin's 
+
+// Statuses 
+
+.bg-success {
+    @include table_badge_style;
+    border: 1px solid #9fdb8a;
+    background-color: #E1FFED !important;
+    color: #33B469 !important;
+}
+
+.bg-danger-light {
+    @include table_badge_style;
+    border: 1px solid #ffd460;
+    background: #fff6dc;
+    color: #ffd460;
+}
+
+.bg-partial-light {
+    @include table_badge_style;
+    background-color: rgba(255, 218, 218, 0.49);
+    color: #FF0000;
+}
+
+.filter-all {
+    @include common_style;
+    background-color: rgba(17, 148, 247, 0.12);
+    color: #2196f3;
+}
+
+.filter-active {
+    @include common_style;
+    background: #caf4bb;
+    color: #389e0d;
+}
+
+.filter-inactive {
+    @include common_style;
+    background: #fff6dc;
+    color: #ffd460;
+}
+
+.draft {
+    @include common_style;
+    background-color: rgba(255, 218, 218, 0.49);
+    color: #FF0000;
+}
+
+
+// Statuses 
+
+.table {
+    thead {
+        background: $table-heading;
+        th {
+            font-weight: 600;
+            font-size: 13px;
+            background: transparent;
+            border: 0;
+            text-wrap: nowrap;
+            &:first-child {
+                border-radius: 100px 0 0 100px;
+            }
+            &:last-child {
+                border-radius: 0 100px 100px 0;
+            }
+        }
+    }
+    tbody {
+        tr {
+            th,td {
+                border: 0;
+                font-size: 12px;
+                text-wrap: nowrap;
+            }
+        }
+    }
+}
+
+.login-body {
+    height: 100vh;
+}
+
+.dont-have {
+    color: #a0a0a0;
+    font-size: 14px;
+    a{
+        color: #333 !important;
+        cursor: pointer;
+        text-decoration: none !important;
+        -webkit-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+}
+.details {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+.table_filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .search_wrappper {
+        position: relative;
+        input {
+            height: 32px;
+            width: 100%;
+            outline: none;
+            border-radius: 9px;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: transparent;
+            &:focus {
+                outline: none;
+                border-color: $base-color;
+            }
+            
+        }
+        svg {
+            position: absolute;
+            top: 9px;
+            right: 6px;
+            font-size: 15px;
+        }
+    }
+    .filters {
+        display: flex;
+        align-items: center;
+        background: #f8f8f8;
+        border-radius: 50px;
+        // width: 330px;
+        gap: 5px;
+        .single_filter {
+            transition: 0.4s ease;
+            cursor: pointer;
+            padding: 8px 10px;
+        }
+        .active_filter {
+            background: $tab-active;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 50px;
+            // box-shadow: rgb(0 0 0 / 31%) 0px 0px 13px 0px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            .filter-all, .filter-active, .filter-inactive, .draft {
+                background-color: white;
+                color: black;
+            }
+            
+        }
+    }
+}
+
+.bs-datepicker-container {
+    padding: 0;
+}
+.bs-datepicker-head {
+    height: 40px;
+    padding: 5px;
+}
+.theme-blue .bs-datepicker-head {
+    background-color: $base-color;
+}
+.theme-blue .bs-datepicker-body table td.week span {
+    color: $base-color;
+}
+
+button.create_btn {
+    border: 0;
+    padding: 5px 10px;
+    color: #ffffff;
+    background-color: $base-color;
+    border-radius: 6px;
+    transition: 0.25s ease-in-out;
+    font-size: 13px;
+    font-weight: 500;
+    &:hover {
+        background-color: $hover-color;
+    }
+}
+.select, .date-selector {
+    height: 35px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    &:focus {
+        outline: none;
+        border-color: $base-color;
+    }
+}
+
+form {
+    input[type="text"]:not([type="checkbox"]),
+    select,
+    textarea {
+        height: 35px;
+        width: 100%;
+        outline: none;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+        font-size: 13px;
+        transition: all 0.3s ease;
+        &:focus {
+            outline: none;
+            border-color: $base-color;
+        }
+    }
+    select {
+        padding-left: 5px;
+    }
+    textarea {
+        height: auto;
+    }
+    .form-input {
+        span {
+            font-weight: 500;
+        }
+    }
+}
+
+
+@media (max-width: 576px) { 
+    .table_filters {
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        gap: 10px;
+    }
+}

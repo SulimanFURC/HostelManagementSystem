@@ -1,0 +1,111 @@
+<div class="custom_card">
+    <div class="student_detail_title mb-3 d-flex align-items-center justify-content-between">
+        <span>All Students</span>
+        <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="create_btn">New Student</button>
+        <!-- <button routerLink="create-student" class="create_btn">New Student</button> -->
+    </div>
+    <div class="table_filters mb-3">
+      <div class="search_wrappper">
+        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>      <input type="text" name="search" placeholder="Search">
+      </div>
+      <div class="filters">
+        <div [class.active_filter]="activeFilter === 'all'" (click)="setActiveFilter('all')" class="d-flex align-items-center gap-1 single_filter">
+          <span>Paid</span>
+          <span class="filter-all">52</span>
+        </div>
+        <div [class.active_filter]="activeFilter === 'active'" (click)="setActiveFilter('active')" class="d-flex align-items-center gap-1 single_filter">
+          <span>Unpaid</span> 
+          <span class="filter-inactive">52</span>
+        </div>
+        <div [class.active_filter]="activeFilter === 'inactive'" (click)="setActiveFilter('inactive')" class="d-flex align-items-center gap-1 single_filter">
+          <span>Draft</span> 
+          <span class="draft">52</span>
+        </div>
+      </div>
+    </div>
+   <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"># </th>
+          <th scope="col">Name</th>
+          <th scope="col">CNIC #</th>
+          <th scope="col">Admission Date</th>
+          <th scope="col">Basic Rent</th>
+          <th scope="col">Contact No</th>
+          <th scope="col">Blood Group</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Samir Khan</td>
+          <td>15302-5555665-3</td>
+          <td>July 25, 2022</td>
+          <td>65000</td>
+          <td>+923025532270</td>
+          <td>O+</td>
+          <td>
+            <div class="dropdown text-center">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+                <li><a class="dropdown-item" (click)="studentProfile()">View Profile</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>Samir Khan</td>
+          <td>15302-5555665-3</td>
+          <td>July 25, 2022</td>
+          <td>65000</td>
+          <td>+923025532270</td>
+          <td>O+</td>
+          <td>
+            <div class="dropdown text-center">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+                <li><a class="dropdown-item" (click)="studentProfile()">View Profile</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">1</th>
+          <td>Samir Khan</td>
+          <td>15302-5555665-3</td>
+          <td>July 25, 2022</td>
+          <td>65000</td>
+          <td>+923025532270</td>
+          <td>O+</td>
+          <td>
+            <div class="dropdown text-center">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+                <li><a class="dropdown-item" (click)="studentProfile()">View Profile</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+   </div>
+</div>
+<app-my-modal>
+  <app-create-student></app-create-student>
+</app-my-modal>
+  

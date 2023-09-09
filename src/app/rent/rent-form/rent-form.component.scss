@@ -1,0 +1,48 @@
+.rent_form_wrapper {
+    margin-bottom: 1rem;
+    .container {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 15px;
+      max-width: 100%;
+      transition: 0.4s ease-in-out;
+      .title {
+        font-size: 20px;
+        font-weight: 500;
+        position: relative;
+        &::before {
+          content: "";
+          position: absolute;
+          height: 3.5px;
+          width: 30px;
+          background: #9984f8;
+          left: 0;
+          bottom: 0;
+        }
+      } 
+      .input__box {
+        .details {
+          font-weight: 600;
+        }
+       }
+  }
+}
+
+@media only screen and (max-width: 584px) {
+  .container {
+    max-width: 100%;
+  }
+
+  form .user__details .input__box {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  form .gender__details .category {
+    width: 100%;
+  }
+
+  .user__details::-webkit-scrollbar {
+    width: 0;
+  }
+}

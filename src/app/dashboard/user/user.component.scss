@@ -1,0 +1,69 @@
+@import "../../../variable.scss";
+
+.dashboard_card_wrapper {
+
+    .custom_card {
+        transition: 0.3s ease-in-out;
+        &:hover {
+           
+        }
+
+        .dashboard_card_header {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-bottom: 0px;
+            flex-direction: column;
+            position: relative;
+            span {
+                color: #9d9d9d;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+
+            .dashboard_card_icon_wrapper {
+                border-radius: 7px;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                i {
+                    font-size: 20px;
+                }
+            }
+            .dashboard_card_icon_wrapper.bg_1{ background: #fff8e5; i {color: #ffb800 }}
+            .dashboard_card_icon_wrapper.bg_2{ background: #f1fbff; i {color: #42cdff }}
+            .dashboard_card_icon_wrapper.bg_3{ background: #e6ffea; i {color: #52fb6a }}
+            .dashboard_card_icon_wrapper.bg_4{ background: #feecff; i {color: #f555ff }}
+        }
+        .dashboard_card_value {
+            display: flex;
+            align-items: start;
+            justify-content: start;
+            span {
+                color: #000;
+                font-size: 28px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+        }
+        .dashboard_card_desc {
+            display: flex;
+            align-items: center;
+            justify-content: start; 
+            span {
+                color: #000;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+        }
+    }
+}

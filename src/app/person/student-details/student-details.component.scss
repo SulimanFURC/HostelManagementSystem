@@ -1,0 +1,32 @@
+.student_detail_title {
+    span {
+        font-size: 25px;
+        font-weight: 500;
+        position: relative;
+        &::before {
+            content: "";
+            position: absolute;
+            height: 3.5px;
+            width: 30px;
+            background: #36a2eb;
+            left: 0;
+            bottom: 0;
+        }
+    }
+}
+.custom_card{
+    height: auto;
+}
+
+.actions {
+    display: flex;
+    column-gap: 10px;
+    .edit {
+        cursor: pointer;
+    }
+    .delete {
+        cursor: pointer;
+    }
+}
+
+

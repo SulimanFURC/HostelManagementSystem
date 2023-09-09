@@ -1,0 +1,63 @@
+.students_details {
+    .single_student {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .student_img_wrapper{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            .img {
+                height: 46px;
+                width: 46px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .counter {
+                color: #000;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+           .contact_info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            .student_name {
+                color: #000;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+           }
+        }
+    }
+}
+
+.former_student_wrapper {
+    .single_former_student{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 15px 0;
+        .img_wrapper{
+            img {
+                height: 46px;
+                width: 46px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+        .contact_wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+       
+        
+    }
+}

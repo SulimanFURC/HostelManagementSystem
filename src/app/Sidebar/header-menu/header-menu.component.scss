@@ -1,0 +1,27 @@
+@import "../../../variable.scss";
+
+.content_wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+    .header_wrapper{
+        flex: 0 0 auto;
+        box-shadow: 4px 4px 4px 0px rgb(0 0 0 / 13%);
+        position: relative;
+    }
+    .dashboard_content {
+        padding: 1rem;
+        background: #F5F8FF;;
+        height: calc(100vh - 72px);
+        overflow: auto;
+        flex: 1 1 auto;
+    }
+    .menuIcon {
+        cursor: pointer;
+    }
+}
+
+
+
+

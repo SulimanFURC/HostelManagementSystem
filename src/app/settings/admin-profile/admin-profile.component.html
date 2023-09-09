@@ -1,0 +1,252 @@
+<div class="row">
+    <div class="col-lg-4 col-md-5 mb-3">
+        <div class="custom_card">
+            <div class="admin-profile">
+                <div class="profile-header p-3">
+                    <h5>Profile</h5>
+                </div>
+                <div class="profile-body text-center">
+                    <div class="img-wrapper">
+                        <img src="https://kanakku.dreamguystech.com/html/template/assets/img/profiles/avatar-10.jpg" alt="">
+                    </div>
+                    <div class="profile-details">
+                        <div class="name d-flex align-items-center justify-content-between w-100">
+                            <span>Name: </span>
+                            <span>Suliman Munawar khan</span>
+                        </div>
+                        <div class="contact d-flex align-items-center justify-content-between w-100">
+                            <span>Contact No: </span>
+                            <span>+92 (302) 553 2270</span>
+                        </div>
+                       <div class="role d-flex align-items-center justify-content-between w-100">
+                            <span>Designation: </span>
+                            <span>Hostel Warden</span>
+                       </div>
+                        
+                        <div class="identitiy d-flex align-items-center justify-content-between w-100">
+                            <span>CNIC No: </span>
+                            <span>15302-5632225-3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-7 mb-3">
+        <app-admin-activity-logs></app-admin-activity-logs>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-lg-4 mb-3">
+        <div class="custom_card p-3">
+            <div class="admin-profile">
+                <div class="profile-header">
+                    <h5>How do you want to calculate shares</h5>
+                </div>
+                <div class="profile-body">
+                   <form [formGroup]="form" class="row share_selection">
+                        <div class="col-md-12 form-input mb-3">
+                            <span class="details">Calculate Share By</span>
+                            <select name="" id="" formControlName="calculateBy">
+                                <option value="month">Monthly</option>
+                                <option value="year">Yearly</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 form-input mb-3">
+                            <span class="details">Select Date Range</span>
+                            <input type="text"
+                                placeholder="Select Date"
+                                class="ps-2"
+                                bsDaterangepicker
+                                formControlName="dateRange"
+                                [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
+                        </div>
+                        <div class="col-md-12 form-input mb-3">
+                            <div class="d-flex flex-column gap-1 mb-2">
+                                <span>Calculate Share</span>
+                                <select name="" id="" class="select px-0" formControlName="selectShare">
+                                    <option value="partners">Samir and Suliman</option>
+                                    <option value="partners_hostel">Samir, Suliman and Hostel</option>
+                                </select>
+                            </div>
+                        </div>
+                   </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 mb-3">
+       <div class="custom_card">
+        <div class="header">
+            <h5>Income/Expense Statement</h5>
+        </div>
+        <div class="row justify-content-between">
+            <div class="col-lg-4 col-sm-6 col-12 d-flex mb-3">
+                <div class="custom_card w-100">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="inovices-widget-icon bg-info-light">
+                                <img src="https://kanakku.dreamguystech.com/html/template/assets/img/icons/receipt-item.svg" alt="">
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Income</div>
+                                <div class="dash-counts">
+                                    <p>$298</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 d-flex mb-3">
+                <div class="custom_card w-100">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="inovices-widget-icon bg-primary-light">
+                                <img src="https://kanakku.dreamguystech.com/html/template/assets/img/icons/transaction-minus.svg" alt="">
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Expense</div>
+                                <div class="dash-counts">
+                                    <p>$325,215</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 d-flex mb-3">
+                <div class="custom_card w-100">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="inovices-widget-icon bg-warning-light">
+                                <img src="https://kanakku.dreamguystech.com/html/template/assets/img/icons/archive-book.svg" alt="">
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Profit/loss</div>
+                                <div class="dash-counts">
+                                    <p>$7825</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-between mb-3 mt-3">
+                <h6> {{form.get('selectShare')?.value === 'partners' ? 'Samir & Suliman Shares': (form.get('selectShare')?.value === 'partners_hostel' ? 'How much % you want to allocate to Hostel' : '')}}</h6>
+                <div style="min-width: 100px;" *ngIf="form.get('selectShare')?.value != 'partners'">
+                    <select name="" id="" class="select px-0">
+                        <option value="10">10%</option>
+                        <option value="15">15%</option>
+                        <option value="20">20%</option>
+                        <option value="25">25%</option>
+                        <option value="30">30%</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-between mt-2">
+           <ng-container *ngIf="form.get('selectShare')?.value != 'partners'">
+            <div class="col-lg-4 col-sm-6 col-12 d-flex">
+                <div class="custom_card w-100">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="inovices-widget-icon bg-info-light">
+                                <img src="https://kanakku.dreamguystech.com/html/template/assets/img/icons/receipt-item.svg" alt="">
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Samir Shares</div>
+                                <div class="dash-counts">
+                                    <p>$298</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 d-flex">
+                <div class="custom_card w-100">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="inovices-widget-icon bg-primary-light">
+                                <img src="https://kanakku.dreamguystech.com/html/template/assets/img/icons/transaction-minus.svg" alt="">
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Suliman Shares</div>
+                                <div class="dash-counts">
+                                    <p>$325,215</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12 d-flex">
+                <div class="custom_card w-100">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="inovices-widget-icon bg-warning-light">
+                                <img src="https://kanakku.dreamguystech.com/html/template/assets/img/icons/archive-book.svg" alt="">
+                            </span>
+                            <div class="dash-count">
+                                <div class="dash-title">Hostel Shares</div>
+                                <div class="dash-counts">
+                                    <p>$7825</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </ng-container>
+
+           <ng-container *ngIf="form.get('selectShare')?.value != 'partners_hostel'">
+                <div class="col-lg-6 mb-3">
+                    <div class="custom_card">
+                        <div class="dashboard_card_header">
+                            <div class="dashboard_card_icon_wrapper bg_1">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <span>Suliman Munwar khan</span> 
+                        </div>
+                        <div class="dashboard_card_value mt-2 mb-2">
+                            <span>245K</span>
+                        </div>
+                        <div class="dashboard_card_desc mt-3">
+                            <span class="d-flex align-items-center gap-1">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                                <span>2.5% from last month</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <div class="custom_card">
+                        <div class="dashboard_card_header">
+                            <div class="dashboard_card_icon_wrapper bg_1">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <span>Samir Khan</span> 
+                        </div>
+                        <div class="dashboard_card_value mt-2 mb-2">
+                            <span>245K</span>
+                        </div>
+                        <div class="dashboard_card_desc mt-3">
+                            <span class="d-flex align-items-center gap-1">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                                <span>2.5% from last month</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+           </ng-container>
+           
+        </div>
+       </div>
+    </div>
+</div>

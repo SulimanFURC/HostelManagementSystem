@@ -1,0 +1,60 @@
+<div class="rent_form_wrapper">
+    <div class="container">
+        <div class="title mb-3">Receive Rent</div>
+        <form [formGroup]="rentForm" (ngSubmit)="onSubmit()">
+          <div class="user__details row">
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Select Person</span>
+              <select formControlName="student_name">
+                <option *ngFor="let item of students" value={{item}}>{{item}}</option>
+              </select>
+            </div>
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Date</span>
+              <input type="text"
+                placeholder="Select Date"
+                class="ps-2"
+                bsDatepicker
+                formControlName="payment_date"
+                [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
+            </div>
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Payment Type</span>
+              <select name="payment_type" id="payment_type" formControlName="payment_type">
+                <option value="cash">Cash</option>
+                <option value="easypaisa">Easypaisa</option>
+                <option value="jazzcash">Jazzcash</option>
+                <option value="BankTransfer">Bank Transfer</option>
+                <option value="installment">Installment</option>
+              </select>
+            </div>
+            <div class="input__box col-lg-6 mb-3">
+              <span class="details">Status</span>
+              <select name="rentStatus" id="rentStatus" formControlName="payment_status">
+                <option value="paid">Paid</option>
+                <option value="unpaid">Unpaid</option>
+                <option value="partialPaid">Partial Paid</option>
+              </select>
+            </div>
+            <div class="input__box col-lg-6 mb-3" *ngIf="rentForm.get('payment_type')?.value != 'installment'">
+              <span class="details">Amount Paid</span>
+              <input type="text" placeholder="5500" required formControlName="payment_amount">
+            </div>
+
+            <ng-container *ngIf="rentForm.get('payment_type')?.value === 'installment'">
+              <div class="input__box col-lg-6 mb-3">
+                <span class="details">Installment 1</span>
+                <input type="text" placeholder="5500" required formControlName="installment_1">
+              </div>
+              <div class="input__box col-lg-6 mb-3">
+                <span class="details">Installment 2</span>
+                <input type="text" placeholder="5500" required formControlName="installment_2">
+              </div>
+            </ng-container>
+          </div>
+          <div class="button mt-3 mb-3">
+            <button type="submit" class="create_btn">Submit</button>
+          </div>
+        </form>
+      </div>
+</div>

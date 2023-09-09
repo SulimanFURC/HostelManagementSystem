@@ -1,0 +1,14 @@
+.title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      height: 3.5px;
+      width: 30px;
+      background: #9984f8;
+      left: 0;
+      bottom: 0;
+    }
+  }
