@@ -73,7 +73,7 @@ p {
     height: 100%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 20px;
     .card_heading {
-        display: flex;
+        display: flex-start;
         align-items: center;
         justify-content: space-between;
         .heading {
@@ -238,7 +238,7 @@ p {
 
 
 .table_filters {
-    display: flex;
+    display: flex-start;
     align-items: center;
     justify-content: space-between;
     .search_wrappper {
@@ -267,7 +267,7 @@ p {
         }
     }
     .filters {
-        display: flex;
+        display: flex-start;
         align-items: center;
         background: #f8f8f8;
         border-radius: 50px;
@@ -284,7 +284,7 @@ p {
             padding: 8px 10px;
             border-radius: 50px;
             // box-shadow: rgb(0 0 0 / 31%) 0px 0px 13px 0px;
-            display: flex;
+            display: flex-start;
             align-items: center;
             gap: 5px;
             .filter-all, .filter-active, .filter-inactive, .draft {
@@ -368,10 +368,43 @@ form {
     }
 }
 
+.loginbox {
+    background-color: #fff;
+    box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
+    display: flex-start;
+    margin: 1.875rem auto;
+    max-width: 450px;
+    width: 100%;
+    border-radius: 20px;
+    .account-subtitle{
+        color: #4c4c4c;
+        font-size: 17px;
+        margin-bottom: 1.875rem;
+        text-align: center;
+    }
+    .login-right{
+        align-items: center;
+        display: flex-start;
+        justify-content: center;
+        padding: 2rem;
+        width: 450px;
+        h1{
+            font-size: 26px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .login-right-wrap {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+}
+
 
 @media (max-width: 576px) { 
     .table_filters {
-        display: flex;
+        display: flex-start;
         align-items: start;
         flex-direction: column;
         gap: 10px;
