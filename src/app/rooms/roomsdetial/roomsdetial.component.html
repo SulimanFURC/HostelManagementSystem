@@ -26,7 +26,6 @@
       <thead>
         <tr>
           <th scope="col">Room Number</th>
-          <th scope="col">Floor</th>
           <th scope="col">Capacity</th>
           <th scope="col">No of Students</th>
           <th scope="col">Attach Bath</th>
@@ -34,29 +33,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">RN-1</th>
-          <td>First Floor</td>
-          <td>2</td>
-          <td>2</td>
-          <td> <span class="bg-success">Yes</span></td>
-          <td>This is two sitter room with basic amenities</td>
-        </tr>
-        <tr>
-          <th scope="row">RN-2</th>
-          <td>Ground Floor</td>
-          <td>2</td>
-          <td>2</td>
-          <td><span class="bg-danger-light">No</span></td>
-          <td>This is two sitter room with basic amenities</td>
-        </tr>
-        <tr>
-          <th scope="row">RN-3</th>
-          <td>First Floor</td>
-          <td>3</td>
-          <td>3</td>
-          <td><span class="bg-success">Yes</span></td>
-          <td>This is Three sitter room with basic amenities</td>
+        <tr *ngFor="let room of roomDetails; let i = index">
+          <th scope="row">RN-{{room.roomID}}</th>
+          <td>{{room.totalCapacity}}</td>
+          <td>{{room.occupied}}</td>
+          <td> <span class="bg-success">{{room.attachBath}}</span></td>
+          <td>{{room.description}}</td>
+          <td>
+            <div class="dropdown text-center">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                 <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
+              </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" href="#">Delete</a></li>
+              </ul>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -67,30 +60,22 @@
   <div class="rent_form_wrapper">
     <div class="container">
         <div class="title mb-3">Create Room</div>
-        <form action="#">
+        <form [formGroup]="createRoomForm" (ngSubmit)="onSubmit()">
           <div class="user__details row">
             <div class="input__box col-lg-6 mb-3">
-              <span class="details">Room No</span>
-              <input type="text" placeholder="RN-01" required>
-            </div>
-            <div class="input__box col-lg-6 mb-3">
-              <span class="details">Floor</span>
-              <input type="text" placeholder="Ground Floor">
-            </div>
-            <div class="input__box col-lg-6 mb-3">
               <span class="details">Capacity</span>
-              <input type="text" placeholder="02" >
+              <input type="text" placeholder="02" formControlName="totalCapacity" >
             </div>
             <div class="input__box col-lg-6 mb-3">
               <span class="details">Attach Bath</span>
-              <select name="room_bath" id="roomBath">
+              <select name="room_bath" id="roomBath" formControlName="attachBath">
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
             </div>
             <div class="input__box col-lg-12 mb-3">
               <span class="details">Description</span>
-              <textarea name="" id="" cols="30" rows="5"></textarea>
+              <textarea name="" id="" cols="30" rows="5" formControlName="description"></textarea>
             </div>
           </div>
           <div class="d-flex align-items-center justify-content-start mt-3 mb-3">

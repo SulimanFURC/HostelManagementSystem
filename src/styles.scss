@@ -339,6 +339,8 @@ button.create_btn {
 }
 
 form {
+    input[type="email"],
+    input[type="password"],
     input[type="text"]:not([type="checkbox"]),
     select,
     textarea {
@@ -399,6 +401,10 @@ form {
             flex: 0 0 100%;
         }
     }
+}
+
+.text-danger {
+    font-size: 12px;
 }
 
 

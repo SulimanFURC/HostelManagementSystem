@@ -6,6 +6,7 @@ import { RoomsdetialComponent } from './roomsdetial/roomsdetial.component';
 import { RoomwrapperComponent } from './roomwrapper/roomwrapper.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     RoomsRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class RoomsModule { }

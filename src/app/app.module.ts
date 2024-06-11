@@ -8,6 +8,10 @@ import { SideMenuComponent } from './Sidebar/side-menu/side-menu.component';
 import { HeaderMenuComponent } from './Sidebar/header-menu/header-menu.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptorInterceptor } from './Services/auth-interceptor.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,9 +22,17 @@ import { AuthenticationModule } from './authentication/authentication.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AuthenticationModule
+    AuthenticationModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
