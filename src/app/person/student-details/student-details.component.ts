@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StudentService } from 'src/app/Services/student.service';
 
 @Component({
   selector: 'app-student-details',
@@ -9,19 +10,27 @@ import { Router } from '@angular/router';
 export class StudentDetailsComponent implements OnInit {
 
   activeFilter: string = 'all';
+  allStudent: any;
+  constructor(private router: Router, private studentService: StudentService) { }
 
-  setActiveFilter(filter: string): void {
-    this.activeFilter = filter;
+  ngOnInit(): void {
+    this.getAllStudents();
   }
-  
-  
-  constructor(private router: Router) { }
+
+
+  getAllStudents() {
+    this.studentService.getAllStudents().subscribe((res)=> {
+      this.allStudent = res;
+      console.log("Students Record: ", this.allStudent);
+    })
+  }
 
   studentProfile() {
     this.router.navigate(['/Persons/Student-Profile']);
   }
 
-  ngOnInit(): void {
+  setActiveFilter(filter: string): void {
+    this.activeFilter = filter;
   }
 
 }

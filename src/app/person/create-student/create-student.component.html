@@ -3,35 +3,31 @@
     <div class="title mx-2">Student Admission Form</div>
     <div class="student_form_wrapper d-flex align-items-start gap-3 mt-4">
       <div class="form mx-2">
-        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
           <div class="row">
             <div class="col-lg-4 col-md-6 form-input mb-3">
-              <span class="details">First Name</span>
-              <input type="text" placeholder="First Name" formControlName="StudentFirstName" required>
+              <span class="details">Full Name</span>
+              <input type="text" placeholder="Full Name" formControlName="name" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
-              <span class="details">Last Name</span>
-              <input type="text" placeholder="Last Name" formControlName="StudentLastName" required>
-            </div>
-            <div class="col-lg-4 col-md-6 form-input mb-3">
-              <span class="details">Father Name</span>
-              <input type="text" placeholder="Father Name" formControlName="FatherName" required>
+              <span class="details">Email</span>
+              <input type="text" placeholder="email" formControlName="email" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Contact Number</span>
-              <input type="text" placeholder="03025532270" formControlName="StudentContactNo" required>
+              <input type="text" placeholder="03025532270" formControlName="contactNo" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
-              <span class="details">Contact Number <span class="tiny">(Incase of emergence)</span></span>
-              <input type="text" placeholder="03025532270" formControlName="EmergencyContactNo" required>
+              <span class="details">Secondary Contact Number</span>
+              <input type="text" placeholder="03025532270" formControlName="secondaryContactNo" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Number</span>
-              <input type="text" placeholder="15302-5632222-8" formControlName="StudentCNICNo" required>
+              <input type="text" placeholder="15302-5632222-8" formControlName="cnic" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Basic Rent</span>
-              <input type="text" placeholder="7500" formControlName="BasicRent" required>
+              <input type="text" placeholder="7500" formControlName="basicRent" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Admission Date</span>
@@ -39,24 +35,24 @@
                 placeholder="Admission Date"
                 class="ps-2"
                 bsDatepicker
-                formControlName="admission_date"
+                formControlName="admissionDate"
                 [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
             </div>
             <div class="col-md-12 form-input mb-3">
-              <span class="details">Permanent Address</span>
-              <input type="text" placeholder="House No 1 Rose Lane 5, New lalazar Rawalpindi" formControlName="StudentAddress" required>
+              <span class="details">Permanent Address <span class="tiny">(As per CNIC)</span></span>
+              <input type="text" placeholder="House No 1 Rose Lane 5, New lalazar Rawalpindi" formControlName="address" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Front Pic</span>
-              <input type="file" class="cnic_pic" formControlName="CNICFront">
+              <input type="file" class="cnic_pic" formControlName="cnic_front">
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Back Pic</span>
-              <input type="file" class="cnic_pic" formControlName="CNICBack">
+              <input type="file" class="cnic_pic" formControlName="cnic_back">
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Profile Picture</span>
-              <input type="file" class="cnic_pic" formControlName="ProfilePic">
+              <input type="file" class="cnic_pic" formControlName="picture">
             </div>
           </div>
           <div class="row">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RoomService } from 'src/app/Services/room.service';
 import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
@@ -13,13 +13,16 @@ export class RoomsdetialComponent implements OnInit {
   activeFilter: string = 'all';
   createRoomForm!: FormGroup;
   validform: boolean = false;
+  isEditMode: boolean = false;
+  selectedRoomId: any;
   @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
-  
+  @ViewChild('roomModal') roomModal!: MyModalComponent;
+
+
   setActiveFilter(filter: string): void {
     this.activeFilter = filter;
   }
-  
-  constructor(private roomService: RoomService, private fb: FormBuilder) { }
+  constructor(private roomService: RoomService, private fb: FormBuilder, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.getAllRoomsDetails();
@@ -27,7 +30,7 @@ export class RoomsdetialComponent implements OnInit {
   }
 
   createForm() {
-    this.createRoomForm = this.fb.group({
+    this.createRoomForm  = this.fb.group({
       totalCapacity: [],
       attachBath: [""],
       description: [""]
@@ -43,11 +46,12 @@ export class RoomsdetialComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  onSubmit(data: string) {
     console.log("Form Values: ", this.createRoomForm.value);
     let formValues = this.createRoomForm.value;
     formValues.totalCapacity = parseInt(formValues.totalCapacity);
-    if(this.createRoomForm.valid){
+    if(this.createRoomForm.valid && data === 'create') {
+      console.log("Form Values: ", this.selectedRoomId)
       this.roomService.createRoom(formValues).subscribe(res => {
         if(res.message === 'Room Created') {
           this.getAllRoomsDetails();
@@ -56,7 +60,32 @@ export class RoomsdetialComponent implements OnInit {
       }, err => {
         console.log(err);
       })
+    } else if(this.createRoomForm.valid && data === 'update') {
+      this.roomService.updateRoom(this.selectedRoomId, formValues).subscribe(res => {
+        console.log("Room Update: ", res);
+        this.roomModal.closeModal();
+        this.getAllRoomsDetails();
+      })
     }
+  }
+
+  editRoom(selectedData: any) {
+    console.log("Selected Data: ", selectedData);
+    this.isEditMode = true;
+    this.roomModal.openModal();
+    this.selectedRoomId = selectedData.roomID;
+    this.createRoomForm.patchValue({
+      totalCapacity: selectedData.totalCapacity,
+      attachBath: selectedData.attachBath,
+      description: selectedData.description
+    });
+  }
+
+  deleteRoom(id: any) {
+    this.roomService.deleteRoom(id).subscribe((res: any) => {
+      console.log("Room Deleted: ", res);
+      this.getAllRoomsDetails();
+    })
   }
 
 }

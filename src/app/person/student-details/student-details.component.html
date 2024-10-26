@@ -38,56 +38,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Samir Khan</td>
-          <td>15302-5555665-3</td>
-          <td>July 25, 2022</td>
-          <td>65000</td>
-          <td>+923025532270</td>
-          <td>O+</td>
-          <td>
-            <div class="dropdown text-center">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                 <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item" href="#">Delete</a></li>
-                <li><a class="dropdown-item" (click)="studentProfile()">View Profile</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Samir Khan</td>
-          <td>15302-5555665-3</td>
-          <td>July 25, 2022</td>
-          <td>65000</td>
-          <td>+923025532270</td>
-          <td>O+</td>
-          <td>
-            <div class="dropdown text-center">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                 <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item" href="#">Delete</a></li>
-                <li><a class="dropdown-item" (click)="studentProfile()">View Profile</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Samir Khan</td>
-          <td>15302-5555665-3</td>
-          <td>July 25, 2022</td>
-          <td>65000</td>
-          <td>+923025532270</td>
-          <td>O+</td>
+        <tr *ngFor="let std of allStudent">
+          <th scope="row">{{std.stdID}}</th>
+          <td>{{std.name}}</td>
+          <td>{{std.cnic}}</td>
+          <td>{{std.admissionDate | date: 'MMM d, y'}}</td>
+          <td>{{std.basicRent}}</td>
+          <td>{{std.contactNo}}</td>
+          <td>{{std.bloodGroup}}</td>
           <td>
             <div class="dropdown text-center">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

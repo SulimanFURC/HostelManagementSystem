@@ -45,8 +45,8 @@
                  <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item" href="#">Delete</a></li>
+                <li><a class="dropdown-item" (click)="editRoom(room)">Edit</a></li>
+                <li><a class="dropdown-item" (click)="deleteRoom(room.roomID)">Delete</a></li>
               </ul>
             </div>
           </td>
@@ -56,11 +56,11 @@
   </div>
 </div>
 
-<app-my-modal>
+<app-my-modal #roomModal id="roomModal">
   <div class="rent_form_wrapper">
     <div class="container">
-        <div class="title mb-3">Create Room</div>
-        <form [formGroup]="createRoomForm" (ngSubmit)="onSubmit()">
+        <div class="title mb-3">{{isEditMode ? 'Update Room' : 'Create Room'}}</div>
+        <form [formGroup]="createRoomForm" (ngSubmit)="onSubmit(isEditMode? 'update' : 'create')">
           <div class="user__details row">
             <div class="input__box col-lg-6 mb-3">
               <span class="details">Capacity</span>

@@ -15,6 +15,20 @@ export class MyModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openModal(): void {
+    const modalElement = this.modal.nativeElement;
+    if (modalElement) {
+      modalElement.classList.add('show');
+      modalElement.style.display = 'block';
+      document.body.classList.add('modal-open');
+
+      // Create and append a backdrop
+      const backdrop = document.createElement('div');
+      backdrop.className = 'modal-backdrop fade show';
+      document.body.appendChild(backdrop);
+    }
+  }
+
   closeModal(): void {
     const modalElement = this.modal.nativeElement;
     if (modalElement) {
