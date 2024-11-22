@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RoomService } from 'src/app/Services/room.service';
+import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
+import { StatusModalComponent } from 'src/app/shared/status-modal/status-modal.component';
 
 @Component({
   selector: 'app-roomsdetial',
@@ -17,12 +19,17 @@ export class RoomsdetialComponent implements OnInit {
   selectedRoomId: any;
   @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
   @ViewChild('roomModal') roomModal!: MyModalComponent;
-
+  @ViewChild(StatusModalComponent) statusModalComponent!: StatusModalComponent;
 
   setActiveFilter(filter: string): void {
     this.activeFilter = filter;
   }
-  constructor(private roomService: RoomService, private fb: FormBuilder, private renderer: Renderer2) { }
+  constructor(
+    private roomService: RoomService, 
+    private fb: FormBuilder, 
+    private renderer: Renderer2,
+    private statusService: StatusServiceService
+  ) { }
 
   ngOnInit(): void {
     this.getAllRoomsDetails();
@@ -84,6 +91,7 @@ export class RoomsdetialComponent implements OnInit {
   deleteRoom(id: any) {
     this.roomService.deleteRoom(id).subscribe((res: any) => {
       console.log("Room Deleted: ", res);
+      this.statusService.showSuccess('Room Deleted Successfully');
       this.getAllRoomsDetails();
     })
   }

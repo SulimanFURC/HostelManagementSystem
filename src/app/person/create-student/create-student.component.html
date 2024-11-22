@@ -38,21 +38,37 @@
                 formControlName="admissionDate"
                 [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
             </div>
+            <div class="col-lg-4 col-md-6 form-input mb-3">
+              <span class="details">Blood Group</span>
+              <select name="blood_group" id="" formControlName="bloodGroup">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
             <div class="col-md-12 form-input mb-3">
               <span class="details">Permanent Address <span class="tiny">(As per CNIC)</span></span>
               <input type="text" placeholder="House No 1 Rose Lane 5, New lalazar Rawalpindi" formControlName="address" required>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Front Pic</span>
-              <input type="file" class="cnic_pic" formControlName="cnic_front">
+              <input type="file" class="cnic_pic" (change)="onFileChange($event, 'cnic_front')">
+              <h4 style="font-size: 10px; color: red" *ngIf="fileError">File Size Too Big</h4>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Back Pic</span>
-              <input type="file" class="cnic_pic" formControlName="cnic_back">
+              <input type="file" class="cnic_pic" (change)="onFileChange($event, 'cnic_back')">
+              <h4 style="font-size: 10px; color: red" *ngIf="fileError">File Size Too Big</h4>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Profile Picture</span>
-              <input type="file" class="cnic_pic" formControlName="picture">
+              <input type="file" class="cnic_pic" (change)="onFileChange($event, 'picture')">
+              <h4 style="font-size: 10px; color: red" *ngIf="fileError">File Size Too Big</h4>
             </div>
           </div>
           <div class="row">

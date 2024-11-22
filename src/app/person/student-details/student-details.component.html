@@ -2,7 +2,6 @@
     <div class="student_detail_title mb-3 d-flex align-items-center justify-content-between">
         <span>All Students</span>
         <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="create_btn">New Student</button>
-        <!-- <button routerLink="create-student" class="create_btn">New Student</button> -->
     </div>
     <div class="table_filters mb-3">
       <div class="search_wrappper">
@@ -24,7 +23,7 @@
       </div>
     </div>
    <div class="table-responsive">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col"># </th>
@@ -53,7 +52,7 @@
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                 <li><a class="dropdown-item" href="#">Edit</a></li>
-                <li><a class="dropdown-item" href="#">Delete</a></li>
+                <li><a class="dropdown-item" (click)="deleteStudent(std.stdID)">Delete</a></li>
                 <li><a class="dropdown-item" (click)="studentProfile()">View Profile</a></li>
               </ul>
             </div>
@@ -64,6 +63,6 @@
    </div>
 </div>
 <app-my-modal>
-  <app-create-student></app-create-student>
+  <app-create-student ></app-create-student>
 </app-my-modal>
   

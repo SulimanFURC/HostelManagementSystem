@@ -9,6 +9,7 @@ import {
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, filter, take, finalize } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { LoaderServiceService } from './loader-service.service';
 
 @Injectable()
 export class AuthInterceptorInterceptor implements HttpInterceptor {
@@ -16,9 +17,10 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private loaderService: LoaderServiceService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    this.loaderService.show();
     return next.handle(this.addToken(request)).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
@@ -26,6 +28,10 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         } else {
           return throwError(error);
         }
+      }),
+      finalize(() => {
+        // Hide the loader after request is completed (success or error)
+        this.loaderService.hide();
       })
     );
   }

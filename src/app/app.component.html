@@ -1,3 +1,6 @@
+<div class="customer-loader-wrapper" *ngIf="loading$ | async">
+    <div class="custom-loader"></div>
+</div> 
 <ng-container *ngIf="!isLogin">
     <router-outlet></router-outlet>
 </ng-container>

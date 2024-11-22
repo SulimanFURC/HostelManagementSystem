@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { StudentService } from 'src/app/Services/student.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class StudentDetailsComponent implements OnInit {
 
   activeFilter: string = 'all';
   allStudent: any;
-  constructor(private router: Router, private studentService: StudentService) { }
+  constructor(private router: Router, private studentService: StudentService, private statusService: StatusServiceService) { }
 
   ngOnInit(): void {
     this.getAllStudents();
@@ -22,6 +23,19 @@ export class StudentDetailsComponent implements OnInit {
     this.studentService.getAllStudents().subscribe((res)=> {
       this.allStudent = res;
       console.log("Students Record: ", this.allStudent);
+    })
+  }
+
+  deleteStudent(id: any) {
+    console.log("ID: ", id);
+    let payload = {"stdID": id}
+    debugger;
+    this.studentService.deleteStudent(payload).subscribe((res: any) => {
+      if(res){
+        this.statusService.showError(res.message);
+      }
+      console.log("Student Deleted: ", res);
+      this.getAllStudents();
     })
   }
 

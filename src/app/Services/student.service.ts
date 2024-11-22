@@ -17,8 +17,13 @@ export class StudentService {
   }
 
   createStudent(studentData: any): Observable<any> {
-    debugger;
     return this.http.post<any>(`${this.apiUrl}/createStudent`, studentData);
   }
+
+  deleteStudent(stdId: any): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/deleteStudent`, {body: stdId});
+  }
+
+
 
 }

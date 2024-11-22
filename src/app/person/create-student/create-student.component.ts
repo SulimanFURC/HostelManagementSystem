@@ -1,6 +1,8 @@
 import { StudentService } from './../../Services/student.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StatusServiceService } from 'src/app/Services/status-service.service';
+import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
 
 @Component({
   selector: 'app-create-student',
@@ -11,10 +13,21 @@ export class CreateStudentComponent implements OnInit {
 
   studentForm!: FormGroup;
   maxCnicLength = 14;
-  
-  constructor(private fb: FormBuilder, private studentService: StudentService) {  }
+  fileError: string | null = null;
+  allStudent: any;
+  @Output() studentCreated = new EventEmitter<void>();
+  @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
+  constructor(private fb: FormBuilder, private studentService: StudentService, private statusService: StatusServiceService) {  }
+
   ngOnInit(): void {
     this.createStudentForm();
+  }
+
+  getAllStudents() {
+    this.studentService.getAllStudents().subscribe((res)=> {
+      this.allStudent = res;
+      console.log("Students Record: ", this.allStudent);
+    })
   }
 
   createStudentForm() {
@@ -35,26 +48,60 @@ export class CreateStudentComponent implements OnInit {
   }
 
   onSubmit() {
-    const formData = new FormData();
-    formData.append('name', this.studentForm.value.name);
-    formData.append('cnic', this.studentForm.value.cnic);
-    formData.append('admissionDate', (this.studentForm.value.admissionDate));
-    formData.append('basicRent', this.studentForm.value.basicRent);
-    formData.append('contactNo', this.studentForm.value.contactNo);
-    formData.append('bloodGroup', this.studentForm.value.bloodGroup);
-    formData.append('address', this.studentForm.value.address);
-    formData.append('secondaryContactNo', this.studentForm.value.secondaryContactNo);
-    formData.append('email', this.studentForm.value.email);
-    formData.append('picture', this.studentForm.get('picture')?.value);
-    formData.append('cnic_front', this.studentForm.get('cnic_front')?.value);
-    formData.append('cnic_back', this.studentForm.get('cnic_back')?.value);
-
+    if(this.studentForm.invalid){
+      alert("Please fill the required fields...");
+    }
+    const formData = {...this.studentForm.value}
+    formData.admissionDate = this.formatDate(formData.admissionDate);
+    console.log("Student Form Data: ", formData);
     this.studentService.createStudent(formData).subscribe((res) => {
       console.log("Student Create: ", res)
+      if(res.status){
+        this.studentForm.reset();
+        this.studentForm.controls['picture'].setValue('');
+        this.studentForm.controls['cnic_front'].setValue('');
+        this.studentForm.controls['cnic_back'].setValue('');
+        this.getAllStudents();
+        this.statusService.showSuccess(res.message)
+      } 
+    }, (error: any) => {
+      console.log("Error: ", error);
     })
   }
 
-  
+  onFileChange(event: any, controlName: string) {
+    const file = event.target.files[0];
+    const maxSize = 1 * 1024 * 1024; // 1MB
+    if(file){
+      if (file.size > maxSize) {
+        this.fileError = 'File size exceeds 1MB. Please choose a smaller file.';
+        event.target.value = '';  // Clear the input field
+        return;
+      }
+      this.fileError = null;
+      console.log("File: ", file)
+      const reader = new FileReader()
+      reader.onload = () => {
+        this.studentForm.patchValue({
+          [controlName]: reader.result as string
+        })
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Format date to "YYYY-MM-DD HH:mm:ss"
+  formatDate(date: string): string {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');  // Months are zero-indexed
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    const seconds = String(d.getSeconds()).padStart(2, '0');
+    
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
 
 
 
