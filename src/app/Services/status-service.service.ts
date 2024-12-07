@@ -8,21 +8,22 @@ import { BehaviorSubject } from 'rxjs';
 export class StatusServiceService {
 
   private statusModalComponent = new BehaviorSubject<StatusModalComponent | null>(null);
+  private modalActionSubject = new BehaviorSubject<{isSuccess: boolean, message: string} | null>(null);
+  
   statusModalComponent$ = this.statusModalComponent.asObservable();
+  modalAction$ = this.modalActionSubject.asObservable();
 
+  // Set modal component reference
   setModalComponent(modalComponent: StatusModalComponent) {
     this.statusModalComponent.next(modalComponent);
   }
 
+  // Trigger modal actions
   showSuccess(message: string) {
-    this.statusModalComponent$.subscribe((component) => {
-      component?.openModal(true, message);
-    });
+    this.modalActionSubject.next({ isSuccess: true, message });
   }
 
   showError(message: string) {
-    this.statusModalComponent$.subscribe((component) => {
-      component?.openModal(false, message);
-    });
+    this.modalActionSubject.next({ isSuccess: false, message });
   }
 }

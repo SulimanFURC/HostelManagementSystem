@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { StudentService } from 'src/app/Services/student.service';
+import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
 
 @Component({
   selector: 'app-student-details',
@@ -21,15 +22,13 @@ export class StudentDetailsComponent implements OnInit {
 
   getAllStudents() {
     this.studentService.getAllStudents().subscribe((res)=> {
-      this.allStudent = res;
+      this.allStudent = res.data;
       console.log("Students Record: ", this.allStudent);
     })
   }
 
   deleteStudent(id: any) {
-    console.log("ID: ", id);
     let payload = {"stdID": id}
-    debugger;
     this.studentService.deleteStudent(payload).subscribe((res: any) => {
       if(res){
         this.statusService.showError(res.message);
@@ -39,8 +38,17 @@ export class StudentDetailsComponent implements OnInit {
     })
   }
 
-  studentProfile() {
-    this.router.navigate(['/Persons/Student-Profile']);
+  studentProfile(id:any) {
+    let payload = {
+      "studentId": id
+    }
+  this.studentService.getStudentById(payload).subscribe((res: any)=> {
+    // this.studentService.setStudentData(res);
+    // this.router.navigate(['/Persons/Student-Profile']);
+    const encodedData = btoa(JSON.stringify(res)); // Encode student data
+    this.router.navigate(['/Persons/Student-Profile'], { queryParams: { data: encodedData } });
+  })
+
   }
 
   setActiveFilter(filter: string): void {

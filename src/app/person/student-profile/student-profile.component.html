@@ -5,10 +5,10 @@
                 <div class="customer-details">
                     <div class="d-flex align-items-center flex-column justify-content-center">
                         <span class="customer-widget-img d-inline-flex justify-content-center w-100">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="">
+                            <img [src]="this.studentRecord?.picture" alt="">
                         </span>
                         <div class="customer-details-cont mt-1 text-center text-break w-75">
-                            <h6>Suliman Munawar khan</h6>
+                            <h6>{{this.studentRecord?.name}}</h6>
                         </div>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Email Address</h6>
-                                    <p>john@example.com</p>
+                                    <p>{{this.studentRecord?.email}}</p>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Phone Number</h6>
-                                    <p>585-785-4840</p>
+                                    <p>{{this.studentRecord?.contactNo}}</p>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>CNIC</h6>
-                                    <p>Kanakku Corporation</p>
+                                    <p>{{this.studentRecord?.cnic}}</p>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Address</h6>
-                                    <p>4712 Cherry Ridge Drive Rochester, NY 14620.</p>
+                                    <p>{{this.studentRecord?.address}}</p>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Admission Date</h6>
-                                    <p>July 20, 2021</p>
+                                    <p>{{this.studentRecord?.admissionDate | date:'dd-MM-yyyy'}}</p>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Bloog Group</h6>
-                                    <p>O+</p>
+                                    <p>{{this.studentRecord?.bloodGroup}}</p>
                                 </div>
                             </div>
                         </div>

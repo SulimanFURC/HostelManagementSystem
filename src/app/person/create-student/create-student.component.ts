@@ -62,6 +62,8 @@ export class CreateStudentComponent implements OnInit {
         this.studentForm.controls['cnic_front'].setValue('');
         this.studentForm.controls['cnic_back'].setValue('');
         this.getAllStudents();
+        debugger;
+        this.myModalComponent.closeModal();
         this.statusService.showSuccess(res.message)
       } 
     }, (error: any) => {

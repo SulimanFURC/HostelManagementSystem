@@ -43,10 +43,8 @@ export class AuthService {
 
   // Login user
   login(email: string, password: string): Observable<any> {
-    debugger;
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response: any) => {
-        debugger;
         if (response.token && response.refreshToken) {
           this.setLoginStatus(true);
           localStorage.setItem('token', response.token);
