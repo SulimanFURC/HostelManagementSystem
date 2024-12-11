@@ -13,7 +13,6 @@ import { LoaderServiceService } from './loader-service.service';
 
 @Injectable()
 export class AuthInterceptorInterceptor implements HttpInterceptor {
-
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
@@ -21,18 +20,17 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loaderService.show();
+
     return next.handle(this.addToken(request)).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         } else {
-          return throwError(error);
+          this.handleNonAuthError(error);
+          return throwError(() => error);
         }
       }),
-      finalize(() => {
-        // Hide the loader after request is completed (success or error)
-        this.loaderService.hide();
-      })
+      finalize(() => this.loaderService.hide())
     );
   }
 
@@ -61,12 +59,10 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         }),
         catchError((error) => {
           this.isRefreshing = false;
-          this.authService.logout(); // Log out user if refresh token fails
-          return throwError(error);
+          this.authService.logout();
+          return throwError(() => error);
         }),
-        finalize(() => {
-          this.refreshTokenSubject.complete();
-        })
+        finalize(() => (this.refreshTokenSubject = new BehaviorSubject<any>(null)))
       );
     } else {
       return this.refreshTokenSubject.pipe(
@@ -74,6 +70,15 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
         take(1),
         switchMap(() => next.handle(this.addToken(request)))
       );
+    }
+  }
+
+  private handleNonAuthError(error: HttpErrorResponse): void {
+    if (error.status === 403) {
+      console.error('Access Denied');
+      // Add redirection or alert logic here
+    } else {
+      console.error(`HTTP Error: ${error.status} - ${error.message}`);
     }
   }
 }

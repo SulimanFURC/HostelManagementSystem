@@ -7,6 +7,7 @@ import { DashboardContentComponent } from './dashboard-content/dashboard-content
 import { DashboardChartsComponent } from './dashboard-charts/dashboard-charts.component';
 import { Chart } from 'chart.js';
 import { registerables } from 'chart.js';
+import { SharedModule } from '../shared/shared.module';
 Chart.register(...registerables);
 
 
@@ -19,6 +20,7 @@ Chart.register(...registerables);
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }

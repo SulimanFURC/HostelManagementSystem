@@ -8,18 +8,9 @@ import { DashboardService } from 'src/app/Services/dashboard.service';
 })
 export class DashboardContentComponent implements OnInit {
 
-  dashboardData: any;
+  constructor() { }
 
-  constructor(private dashboard: DashboardService) { }
-
-  ngOnInit(): void {
-    this.dashboard.getDashboardData().subscribe(data => {
-      this.dashboardData = data;
-      console.log(this.dashboardData);
-    }, error => {
-      console.log(error);
-    })
-  }
+  ngOnInit(): void {  }
   
 
 }

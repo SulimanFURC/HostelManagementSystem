@@ -1,6 +1,7 @@
 
 import { Component, OnInit,} from '@angular/core';
 import { Chart } from 'chart.js';
+import { DashboardService } from 'src/app/Services/dashboard.service';
 
 
 
@@ -26,32 +27,43 @@ export class DashboardChartsComponent implements OnInit {
     'December'
   ];
 
-  constructor() {
+  constructor(private dashboard: DashboardService) {
 
   }
 
   ngOnInit(): void {
-    this.RenderChart()
+    this.chartData()
   }
 
-  RenderChart () {
+  chartData() {
+    this.dashboard.getDashboardChart().subscribe((data: any) => {
+      const labels = data.map((d: any) => `${this.months[d.month - 1]}`);
+      const incomeData = data.map((d: any) => d.income);
+      const expenseData = data.map((d: any) => d.expense);
+      const savingsData = data.map((d: any) => d.savings);
+
+      this.RenderChart(labels, incomeData, expenseData, savingsData);
+    })
+  }
+
+  RenderChart (labels: string[], incomeData: number[], expenseData: number[], savingsData: number[]) {
     new Chart('myChart', {
       type: 'line',
       data: {
-        labels: this.months.slice(0, 6),
+        labels: labels,
         datasets: 
         [
           {
           label: 'Monthly Income',
-          data: [65000, 60000, 68000, 66000, 59000, 50000, 58000],
+          data: incomeData,
           },
           {
             label: 'Monthly Expenses',
-            data: [70000, 58000, 60000, 67000, 40000, 45000, 65000],
+            data: expenseData,
           },
           {
             label: 'Total Savings',
-            data: [-5000, 2000, 8000, -1000, 19000, 5000, -7000],
+            data: savingsData,
           },
         ],
       },
