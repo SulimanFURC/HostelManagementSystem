@@ -63,6 +63,7 @@ export class RoomsdetialComponent implements OnInit {
         if(res.message === 'Room Created') {
           this.getAllRoomsDetails();
           this.myModalComponent.closeModal();
+          this.createRoomForm.reset();
         }
       }, err => {
         console.log(err);
@@ -71,6 +72,7 @@ export class RoomsdetialComponent implements OnInit {
       this.roomService.updateRoom(this.selectedRoomId, formValues).subscribe(res => {
         console.log("Room Update: ", res);
         this.roomModal.closeModal();
+        this.createRoomForm.reset();
         this.getAllRoomsDetails();
       })
     }

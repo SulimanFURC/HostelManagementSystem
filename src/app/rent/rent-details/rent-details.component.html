@@ -42,7 +42,7 @@
           <tr *ngFor="let item of rentInfo; let i = index">
             <th scope="row">{{i+1}}</th>
             <td>{{item.name}}</td>
-            <td>{{item.Month}}</td>
+            <td>{{getMonthName(item.RentPaidMonth)}}</td>
             <td>{{item.Year}}</td>
             <td><span [ngClass]="{
               'bg-success': item.RentStatus === 'Paid',
@@ -52,7 +52,7 @@
             <td>{{item.RentType}}</td>
             <td>{{item.BasicRent}}</td>
             <td>{{item.PaidAmount}}</td>
-            <td>{{item.Arrers}}</td>
+            <td>{{item.Dues}}</td>
             <td>
               <div class="dropdown text-center">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,6 +62,7 @@
                   <li><a class="dropdown-item">View Profile</a></li>
                   <li><a class="dropdown-item">Rent Details</a></li>
                   <li><a class="dropdown-item" routerLink="invoice">Invoice</a></li>
+                  <li><a class="dropdown-item" (click)="deleteRent(item.rentID)">Delete</a></li>
                 </ul>
               </div>
             </td>

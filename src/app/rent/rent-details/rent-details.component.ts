@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RentService } from 'src/app/Services/rent.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-rent-details',
@@ -7,49 +10,47 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class RentDetailsComponent implements OnInit {
 
-
-  rentInfo = [ 
-    {
-      name: 'Suliman',
-      Month: 'January',
-      Year: 2023,
-      RentStatus: 'Paid',
-      RentType: 'Cash',
-      BasicRent: 7500,
-      PaidAmount: 6500,
-      Arrers: 1000,
-    },
-    {
-      name: 'Samir',
-      Month: 'January',
-      Year: 2023,
-      RentStatus: 'Unpaid',
-      RentType: 'Easypaisa',
-      BasicRent: 7500,
-      PaidAmount: 7000,
-      Arrers: 500,
-    },
-    {
-      name: 'Khan',
-      Month: 'January',
-      Year: 2023,
-      RentStatus: 'Installment',
-      RentType: 'Bank Transfer',
-      BasicRent: 7500,
-      PaidAmount: 7500,
-      Arrers: 0,
-    },
-  ]
-
+  rentInfo: any;
   activeFilter: string = 'all';
+  monthNames: string[] = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+    
+  constructor(private rentService: RentService) { }
+
+  ngOnInit(): void {
+    this.getAllRents();
+  }
 
   setActiveFilter(filter: string): void {
     this.activeFilter = filter;
   }
-  
-  constructor() { }
 
-  ngOnInit(): void {
+  getMonthName(monthNumber: number): string {
+    return this.monthNames[monthNumber - 1];
+  }
+
+  deleteRent(data: any) {
+
+  }
+
+  getAllRents() {
+    this.rentService.getAllRentRecords().subscribe((res: any) => {
+      this.rentInfo = res.data;
+    }, (error: any) => {
+      console.log("Get All Rent Error: ", error)
+    })
   }
 
 
