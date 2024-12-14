@@ -5,7 +5,7 @@
                 <div class="customer-details">
                     <div class="d-flex align-items-center flex-column justify-content-center">
                         <span class="customer-widget-img d-inline-flex justify-content-center w-100">
-                            <img [src]="this.studentRecord?.picture" alt="">
+                            <img [src]="this.studentRecord?.picture || 'https://github.com/mdo.png'" alt="">
                         </span>
                         <div class="customer-details-cont mt-1 text-center text-break w-75">
                             <h6>{{this.studentRecord?.name}}</h6>
@@ -71,7 +71,7 @@
                         <div class="customer-details">
                             <div class="d-flex align-items-center">
                                 <span class="customer-widget-icon d-inline-flex">
-                                    <i class="fa-solid fa-location-dot"></i>
+                                    <i class="fa fa-calendar"></i>
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Admission Date</h6>
@@ -84,7 +84,7 @@
                         <div class="customer-details">
                             <div class="d-flex align-items-center">
                                 <span class="customer-widget-icon d-inline-flex">
-                                    <i class="fa-solid fa-location-dot"></i>
+                                    <i class="fa-solid fa-droplet"></i>
                                 </span>
                                 <div class="customer-details-cont">
                                     <h6>Bloog Group</h6>

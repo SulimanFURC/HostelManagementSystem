@@ -12,8 +12,8 @@
             </div>
             <div class="dashboard_card_desc mt-3">
                 <span class="d-flex align-items-center gap-1">
-                    <i *ngIf="dashboardData.incomeChange > 0" [class]="dashboardData.incomeChange > 0 ? 'fa-solid fa-arrow-trend-up': 'fa-solid fa-arrow-trend-down'"></i>
-                    <span>{{valueChange(dashboardData.incomeChange)}}% from last month</span>
+                    <i *ngIf="dashboardData?.incomeChange > 0" [class]="dashboardData.incomeChange > 0 ? 'fa-solid fa-arrow-trend-up': 'fa-solid fa-arrow-trend-down'"></i>
+                    <span>{{valueChange(dashboardData?.incomeChange)}}% from last month</span>
                 </span>
             </div>
         </div>
@@ -31,9 +31,9 @@
             </div>
             <div class="dashboard_card_desc mt-3">
                 <span class="d-flex align-items-center gap-1">
-                    <i *ngIf="dashboardData.expenseChange > 0" class="fa-solid fa-arrow-trend-up"></i>
-                    <i *ngIf="dashboardData.expenseChange < 0" class="fa-solid fa-arrow-trend-down"></i>
-                   <span>{{valueChange(dashboardData.expenseChange)}}% from last month</span>
+                    <i *ngIf="dashboardData?.expenseChange > 0" class="fa-solid fa-arrow-trend-up"></i>
+                    <i *ngIf="dashboardData?.expenseChange < 0" class="fa-solid fa-arrow-trend-down"></i>
+                   <span>{{valueChange(dashboardData?.expenseChange)}}% from last month</span>
                 </span>
             </div>
         </div>
@@ -51,9 +51,9 @@
             </div>
             <div class="dashboard_card_desc mt-3">
                 <span class="d-flex align-items-center gap-1">
-                    <i *ngIf="dashboardData.savingsChange > 0" class="fa-solid fa-arrow-trend-up"></i>
-                    <i *ngIf="dashboardData.savingsChange < 0" class="fa-solid fa-arrow-trend-down"></i>
-                    <span>{{valueChange(dashboardData.savingsChange)}}% from last month</span>
+                    <i *ngIf="dashboardData?.savingsChange > 0" class="fa-solid fa-arrow-trend-up"></i>
+                    <i *ngIf="dashboardData?.savingsChange < 0" class="fa-solid fa-arrow-trend-down"></i>
+                    <span>{{valueChange(dashboardData?.savingsChange)}}% from last month</span>
                 </span>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 <span>Most Spending</span>
             </div>
             <div class="dashboard_card_value mt-2 mb-2">
-                <span>{{dashboardData.mostSpending.expName}}</span>
+                <span>{{dashboardData?.mostSpending.expName}}</span>
             </div>
             <!-- <div class="dashboard_card_desc mt-3">
                 <span class="d-flex align-items-center gap-1">

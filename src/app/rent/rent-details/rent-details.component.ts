@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RentService } from 'src/app/Services/rent.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-rent-details',
@@ -12,6 +10,7 @@ export class RentDetailsComponent implements OnInit {
 
   rentInfo: any;
   activeFilter: string = 'all';
+  currentDues: any;
   monthNames: string[] = [
     'January',
     'February',
@@ -27,7 +26,7 @@ export class RentDetailsComponent implements OnInit {
     'December'
   ];
     
-  constructor(private rentService: RentService) { }
+  constructor(private rentService: RentService,) { }
 
   ngOnInit(): void {
     this.getAllRents();
@@ -41,8 +40,15 @@ export class RentDetailsComponent implements OnInit {
     return this.monthNames[monthNumber - 1];
   }
 
-  deleteRent(data: any) {
-
+  deleteRent(id: any) {
+    console.log("Selected Rent ID: ", id);
+    let payload = {
+      "rentID": id
+   }
+    this.rentService.deleteRentRecord(payload).subscribe((res: any) => {
+      console.log("Rent Deleted: ", res);
+      this.getAllRents();
+    })
   }
 
   getAllRents() {
@@ -52,6 +58,5 @@ export class RentDetailsComponent implements OnInit {
       console.log("Get All Rent Error: ", error)
     })
   }
-
 
 }
