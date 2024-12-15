@@ -43,8 +43,7 @@ export class StudentDetailsComponent implements OnInit {
       "studentId": id
     }
   this.studentService.getStudentById(payload).subscribe((res: any)=> {
-    // this.studentService.setStudentData(res);
-    // this.router.navigate(['/Persons/Student-Profile']);
+    console.log("Student Record: ", res);
     const encodedData = btoa(JSON.stringify(res)); // Encode student data
     this.router.navigate(['/Persons/Student-Profile'], { queryParams: { data: encodedData } });
   })

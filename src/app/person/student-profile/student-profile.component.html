@@ -100,7 +100,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
+        <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3">
             <div class="custom_card w-100">
                 <div class="card-body">
                     <div class="dash-widget-header">
@@ -110,14 +110,14 @@
                         <div class="dash-count">
                             <div class="dash-title">Total Payment</div>
                             <div class="dash-counts">
-                                <p>$298</p>
+                                <p>{{this.totalAmountPaid | currency: 'PKR '}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
+        <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3">
             <div class="custom_card w-100">
                 <div class="card-body">
                     <div class="dash-widget-header">
@@ -125,16 +125,16 @@
                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><g id="Credit_Card_Off"><g><path d="M21.94,7.64v9.3a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V9.64H13.49a.75.75,0,0,1,0-1.5h7.45v-.5a1.5,1.5,0,0,0-1.5-1.5H9.89a.5.5,0,0,1,0-1h9.55A2.5,2.5,0,0,1,21.94,7.64Z"></path><path d="M8.064,14.246h-3a.5.5,0,0,1,0-1h3a.5.5,0,0,1,0,1Z"></path><path d="M18.935,14.248h-.944a.5.5,0,0,1,0-1h.944a.5.5,0,0,1,0,1Z"></path><path d="M18.76,18.05,4.01,3.3c-.46-.46-1.17.25-.71.7L4.44,5.14a2.5,2.5,0,0,0-2.38,2.5v8.72a2.5,2.5,0,0,0,2.5,2.5h13.6L20,20.7c.45.46,1.16-.25.7-.71ZM3.06,7.64a1.5,1.5,0,0,1,1.5-1.5h.88c.66.67,1.33,1.34,2,2H3.06Zm9.49,5.61h-.12a.5.5,0,0,0-.5.5.508.508,0,0,0,.5.5h1.12l3.61,3.61H4.56a1.5,1.5,0,0,1-1.5-1.5V9.64H8.94Z"></path></g></g></svg>
                         </span>
                         <div class="dash-count">
-                            <div class="dash-title">Outstanding</div>
+                            <div class="dash-title" data-bs-toggle="tooltip" data-bs-placement="top" title="Sum of all Dues">Outstanding</div>
                             <div class="dash-counts">
-                                <p>$325,215</p>
+                                <p>{{totalAmountDue | currency: 'PKR '}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
+        <!-- <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
             <div class="custom_card w-100">
                 <div class="card-body">
                     <div class="dash-widget-header">
@@ -150,8 +150,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
+        </div> -->
+        <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3">
             <div class=" custom_card w-100">
                 <div class="card-body">
                     <div class="dash-widget-header">
@@ -161,14 +161,14 @@
                         <div class="dash-count">
                             <div class="dash-title">Security</div>
                             <div class="dash-counts">
-                                <p>2000</p>
+                                <p>{{this.studentRecord?.securityFee | currency: 'PKR '}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
+        <div class="col-lg-3 col-sm-6 col-12 d-flex mb-3">
             <div class="custom_card w-100">
                 <div class="card-body">
                     <div class="dash-widget-header">
@@ -183,14 +183,14 @@
                         <div class="dash-count">
                             <div class="dash-title">Basic Rent</div>
                             <div class="dash-counts">
-                                <p>$6500</p>
+                                <p>{{this.studentRecord?.basicRent | currency: 'PKR '}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
+        <!-- <div class="col-lg-2 col-sm-6 col-12 d-flex mb-3">
             <div class="custom_card w-100">
                 <div class="card-body">
                     <div class="dash-widget-header">
@@ -211,7 +211,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="row">
@@ -224,29 +224,26 @@
                         <th scope="col">Month</th>
                         <th scope="col">Year</th>
                         <th scope="col">Basic Rent</th>
-                        <th scope="col">Payment Mode</th>
                         <th scope="col">Amount Paid</th>
                         <th scope="col">Current Month Due</th>
                         <th scope="col">Total Dues</th>
-                        <th scope="col">Action</th>
+                        <!-- <th scope="col">Action</th> -->
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>January</td>
-                        <td>2023</td>
-                        <td>$6500</td>
-                        <td>Cash</td>
-                        <td>$6500</td>
-                        <td>$0</td>
-                        <td>$1200</td>
-                        <td>
+                      <tr *ngFor="let rent of studentRentRecord; let i = index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{getMonthName(rent.Month)}}</td>
+                        <td>{{rent.Year}}</td>
+                        <td>{{rent.BasicRent | currency: 'PKR '}}</td>
+                        <td>{{rent.AmountPaid | currency: 'PKR '}}</td>
+                        <td>{{rent.CurrentMonthDue | currency: 'PKR '}}</td>
+                        <td>{{rent.TotalDues | currency: 'PKR '}}</td>
+                        <!-- <td>
                            <div class="table_action">
                             <i class="fa-regular fa-pen-to-square"></i>
-                            <!-- <i class="fa-solid fa-trash-can"></i> -->
                            </div>
-                        </td>
+                        </td> -->
                       </tr>
                     </tbody>
                 </table>
