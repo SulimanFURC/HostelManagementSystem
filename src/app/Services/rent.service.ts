@@ -14,11 +14,18 @@ export class RentService {
   createRentRecord(rentData: any) {
     return this.http.post(`${this.apiUrl}/createRental`, rentData);
   }
-  getAllRentRecords() {
-    return this.http.get(`${this.apiUrl}/getAllRentals`);
+  
+  getAllRentRecords(page: number, pageSize: number) {
+    return this.http.get(`${this.apiUrl}/getAllRentals`, {
+      params: { page: page.toString(), pageSize: pageSize.toString() },
+    });
   }
 
   deleteRentRecord(rentId: any) {
     return this.http.delete(`${this.apiUrl}/deleteRental`, {body: rentId});
+  }
+
+  stuentRentalRecord(rentId: any) {
+    return this.http.post(`${this.apiUrl}/getStudentRentDetails`, rentId);
   }
 }

@@ -11,6 +11,10 @@ export class RentDetailsComponent implements OnInit {
   rentInfo: any;
   activeFilter: string = 'all';
   currentDues: any;
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalRecords: number = 0;
+  totalPages: number = 0;
   monthNames: string[] = [
     'January',
     'February',
@@ -29,15 +33,24 @@ export class RentDetailsComponent implements OnInit {
   constructor(private rentService: RentService,) { }
 
   ngOnInit(): void {
-    this.getAllRents();
+    this.getAllRents(this.currentPage, this.pageSize);
   }
 
-  setActiveFilter(filter: string): void {
-    this.activeFilter = filter;
+  getAllRents(page: number, pageSize: number) {
+    this.rentService.getAllRentRecords(page, pageSize).subscribe((res: any) => {
+      this.rentInfo = res.data;
+      this.totalRecords = res.totalRecords;
+      this.totalPages = res.totalPages;
+      this.currentPage = res.currentPage;
+    }, (error: any) => {
+      console.log("Get All Rent Error: ", error)
+    })
   }
 
-  getMonthName(monthNumber: number): string {
-    return this.monthNames[monthNumber - 1];
+  onPageChange(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.getAllRents(page, this.pageSize);
+    }
   }
 
   deleteRent(id: any) {
@@ -47,16 +60,16 @@ export class RentDetailsComponent implements OnInit {
    }
     this.rentService.deleteRentRecord(payload).subscribe((res: any) => {
       console.log("Rent Deleted: ", res);
-      this.getAllRents();
+      this.getAllRents(this.currentPage, this.pageSize);
     })
   }
 
-  getAllRents() {
-    this.rentService.getAllRentRecords().subscribe((res: any) => {
-      this.rentInfo = res.data;
-    }, (error: any) => {
-      console.log("Get All Rent Error: ", error)
-    })
+  setActiveFilter(filter: string): void {
+    this.activeFilter = filter;
+  }
+
+  getMonthName(monthNumber: number): string {
+    return this.monthNames[monthNumber - 1];
   }
 
 }
