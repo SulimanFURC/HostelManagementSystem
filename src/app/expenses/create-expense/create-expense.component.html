@@ -3,13 +3,13 @@
       <div class="title mx-2">Create Expense</div>
       <div class="student_form_wrapper d-flex align-items-start gap-3 mt-4">
         <div class="form mx-2">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
             <div class="row">
 
-              <div class="col-md-4 form-input mb-3">
+              <!-- <div class="col-md-4 form-input mb-3">
                 <span class="details">Expense ID</span>
                 <input type="text" placeholder="Exp-0002" formControlName="Expense_id">
-              </div>
+              </div> -->
   
               <div class="col-md-4 form-input mb-3">
                 <span class="details">Date</span>
@@ -17,13 +17,13 @@
                   placeholder="Select Expense Date"
                   class="date-selector ps-2"
                   bsDatepicker
-                  formControlName="Expense_date"
+                  formControlName="expDate"
                   [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
               </div>
 
               <div class="col-md-4 form-input mb-3">
                 <span class="details">Expense Name</span>
-                <select name="fixed_expenses" id="fixed_expenses" formControlName="Fixed_Expense">
+                <select name="fixed_expenses" id="fixed_expenses" formControlName="expName">
                   <option value="electritybill1">Electricty Bill for hostel 1</option>
                   <option value="electritybill2">Electricty Bill for hostel 2</option>
                   <option value="gasBill">Gas Bill</option>
@@ -36,12 +36,12 @@
               </select>
               </div>
 
-              <div class="col-md-4 form-input mb-3" *ngIf="form.get('Fixed_Expense')?.value === 'other'">
+              <!-- <div class="col-md-4 form-input mb-3" *ngIf="expenseForm.get('expName')?.value === 'other'">
                 <span class="details">Other Expense</span>
                 <input type="text" placeholder="Write other expense name" formControlName="other_expense">
-              </div>
+              </div> -->
 
-              <ng-container *ngIf="form.get('Fixed_Expense')?.value == 'waterTanker'">
+              <!-- <ng-container *ngIf="expenseForm.get('Fixed_Expense')?.value == 'waterTanker'">
                 <div class="col-md-4 form-input mb-3">
                   <span class="details">Amount Paid <span class="tiny">(Amount Paid for water tanker)</span></span>
                   <input type="text" placeholder="Write other expense name" formControlName="tankerAmount_paid">
@@ -50,16 +50,16 @@
                   <span class="details">Amount Due <span class="tiny">(Total Due Amount)</span></span>
                   <input type="text" placeholder="Write other expense name" formControlName="tankerAmount_due">
                 </div>
-              </ng-container>
+              </ng-container> -->
 
-              <div class="col-md-4 form-input mb-3" *ngIf="form.get('Fixed_Expense')?.value != 'waterTanker'">
+              <div class="col-md-4 form-input mb-3">
                 <span class="details">Expense Amount</span>
-                <input type="text" placeholder="1200" formControlName="Expense_amount">
+                <input type="text" placeholder="1200" formControlName="expAmount">
               </div>
 
               <div class="col-md-4 form-input mb-3">
                 <span class="details">Payment Mode</span>
-                <select name="paymentmode" id="paymentmode" formControlName="Payment_mode">
+                <select name="paymentmode" id="paymentmode" formControlName="expPaymentMode">
                     <option value="cash">Cash</option>
                     <option value="easypaisa">Easypaisa</option>
                     <option value="jazzcash">JazzCash</option>
@@ -69,12 +69,13 @@
 
               <div class="col-md-12 form-input mb-3">
                 <span class="details">Description <span class="tiny">(Write a short description about expense)</span></span>
-                <textarea name="expense_desc" id="exp_desc" cols="30" rows="5" formControlName="Expense_description"></textarea>
+                <textarea name="expense_desc" id="exp_desc" cols="30" rows="5" formControlName="description"></textarea>
               </div>
 
               <div class="col-md-6 form-input mb-3">
                 <span class="details">Expense Attachment <span class="tiny">(If any)</span></span>
-                <input type="file" placeholder="" class="cnic_pic" formControlName="Expense_pic">
+                <input type="file" placeholder="" class="cnic_pic" (change)="onFileChange($event, 'expAttachment')">
+                <h4 style="font-size: 10px; color: red" *ngIf="fileError">File Size Too Big</h4>
               </div>
 
               

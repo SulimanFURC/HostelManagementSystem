@@ -89,6 +89,7 @@
                       <tr>
                         <th scope="col"># </th>
                         <th scope="col">Expense ID</th>
+                        <th scope="col">Expense Name</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Attachment</th>
                         <th scope="col">Payment Mode</th>
@@ -98,14 +99,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Exp-0001</td>
-                        <td>$1800</td>
-                        <td>No attachments</td>
-                        <td>Cash</td>
-                        <td>August 20, 2023</td>
-                        <td>door lock changed and repaired</td>
+                      <tr *ngFor="let exp of allExpenses; let i = index">
+                        <th scope="row">{{(currentPage - 1) * pageSize + (i + 1)}}</th>
+                        <td>Exp-{{exp.expID}}</td>
+                        <td>{{exp.expName}}</td>
+                        <td>{{exp.expAmount}}</td>
+                        <td>{{exp.expAttachment || 'No Attachment'}}</td>
+                        <td>{{exp.expPaymentMode}}</td>
+                        <td>{{exp.expDate | date: 'MMM dd, yyyy'}}</td>
+                        <td>{{exp.description}}</td>
                         <td>
                           <div class="dropdown text-center">
                             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -122,9 +124,22 @@
                 </table>
             </div>
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end mb-0 mt-3">
+              <li [class]="currentPage === 1 ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" tabindex="-1" [attr.aria-disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">&laquo;</a>
+              </li>
+              <li class="page-item" *ngFor="let page of [].constructor(totalPages); let index = index" [class.active]="currentPage === index + 1">
+                <a class="page-link" (click)="onPageChange(index + 1)">{{ index + 1 }}</a>
+              </li>
+              <li [class]="currentPage === totalPages ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" [attr.aria-disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">&raquo;</a>
+              </li>
+            </ul>
+          </nav>
     </div>
 </div>
 
 <app-my-modal>
-  <app-create-expense></app-create-expense>
+  <app-create-expense (closeModal)="handleModalClose()"></app-create-expense>
 </app-my-modal>
