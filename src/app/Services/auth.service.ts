@@ -67,14 +67,19 @@ export class AuthService {
   // Refresh the token
   refreshToken(): Observable<any> {
     const refreshToken = this.getRefreshToken();
-    return this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken }).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-        }
-      })
+    if (!refreshToken) {
+        throw new Error('No refresh token available');
+    }
+
+    const payload = { token: refreshToken };
+    return this.http.post(`${this.apiUrl}/refresh-token`, payload).pipe(
+        tap((response: any) => {
+            if (response.token) {
+                localStorage.setItem('token', response.token); // Update token in storage
+            }
+        })
     );
-  }
+}
 
   // Check if the token is expired
   isTokenExpired(token: string): boolean {

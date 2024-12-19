@@ -34,44 +34,46 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     );
   }
 
-  private addToken(request: HttpRequest<unknown>): HttpRequest<unknown> {
-    const token = this.authService.getToken();
-    if (token) {
-      return request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-    return request;
-  }
-
   private handle401Error(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
+        this.isRefreshing = true;
+        this.refreshTokenSubject.next(null);
 
-      return this.authService.refreshToken().pipe(
-        switchMap((response: any) => {
-          this.isRefreshing = false;
-          this.refreshTokenSubject.next(response.token);
-          return next.handle(this.addToken(request));
-        }),
-        catchError((error) => {
-          this.isRefreshing = false;
-          this.authService.logout();
-          return throwError(() => error);
-        }),
-        finalize(() => (this.refreshTokenSubject = new BehaviorSubject<any>(null)))
-      );
+        return this.authService.refreshToken().pipe(
+            switchMap((response: any) => {
+                this.isRefreshing = false;
+                const newToken = response.token;
+                this.authService.setLoginStatus(true); // Ensure user is still marked as logged in
+                this.refreshTokenSubject.next(newToken); // Notify other requests about the new token
+                return next.handle(this.addToken(request, newToken)); // Use the new token
+            }),
+            catchError((error) => {
+                this.isRefreshing = false;
+                this.authService.logout(); // Logout on refresh token failure
+                return throwError(() => error);
+            })
+        );
     } else {
-      return this.refreshTokenSubject.pipe(
-        filter(token => token !== null),
-        take(1),
-        switchMap(() => next.handle(this.addToken(request)))
-      );
+        // Queue subsequent requests until the refresh is complete
+        return this.refreshTokenSubject.pipe(
+            filter(token => token !== null), // Wait for the new token
+            take(1), // Complete after receiving the new token
+            switchMap((token) => next.handle(this.addToken(request, token)))
+        );
     }
-  }
+}
+
+private addToken(request: HttpRequest<unknown>, token?: string): HttpRequest<unknown> {
+    const authToken = token || this.authService.getToken();
+    if (authToken) {
+        return request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${authToken}`
+            }
+        });
+    }
+    return request;
+}
 
   private handleNonAuthError(error: HttpErrorResponse): void {
     if (error.status === 403) {

@@ -45,23 +45,29 @@
                     <span class="expense_desc">Net Income/Expense for the month of {{month_name}}</span>
                     <div class="expense_income mt-2">
                         <div class="expense_left">
-                            <span class="expense_amount">85000</span>
+                            <span class="expense_amount">{{removePoint(totalIncome) || 0}}</span>
                             <span class="expense_type">Income</span>
                         </div>
                         <div class="expense_right">
                             <div class="progress income">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success" role="progressbar" [style.width.%]="incomePercentage"
+                                [attr.aria-valuenow]="incomePercentage"
+                                aria-valuemin="0"
+                                aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
                     <div class="expense_income mt-2">
                         <div class="expense_left">
-                            <span class="expense_amount">15000</span>
+                            <span class="expense_amount">{{totalExpense || 0}}</span>
                             <span class="expense_type">Expense</span>
                         </div>
                         <div class="expense_right">
                             <div class="progress expense">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-warning" role="progressbar" [style.width.%]="expensePercentage"
+                                [attr.aria-valuenow]="expensePercentage"
+                                aria-valuemin="0"
+                                aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>

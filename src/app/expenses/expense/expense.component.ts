@@ -15,9 +15,13 @@ export class ExpenseComponent implements OnInit {
   allExpenses: any;
   currentDues: any;
   currentPage: number = 1;
-  pageSize: number = 4;
+  pageSize: number = 10;
   totalRecords: number = 0;
   totalPages: number = 0;
+  totalIncome: any;
+  totalExpense: any;
+  incomePercentage: number = 0;
+  expensePercentage: number = 0;
   @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
 
   constructor(private router: Router, private expenseService: ExpenseService) { }
@@ -61,6 +65,9 @@ export class ExpenseComponent implements OnInit {
     })
   }
 
+  removePoint(value: any) {
+    return Math.abs(value)
+  }
   onPageChange(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.getAllExpenses(page, this.pageSize);
@@ -69,8 +76,26 @@ export class ExpenseComponent implements OnInit {
 
   onDateRangeChange(selectedDates: any): void {
     if (selectedDates && selectedDates.length === 2) {
-      const startDate = selectedDates[0];
-      this.month_name = this.getMonthName(startDate.getMonth());
+      const formatDate = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-based
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+  
+      const startDate = formatDate(selectedDates[0]);
+      const endDate = formatDate(selectedDates[1]);
+      let payload = { 
+        startDate: startDate,
+        endDate: endDate
+      }
+      this.expenseService.expenseByDateRange(payload).subscribe((res: any) => {
+        this.totalIncome = res.totalIncome;
+        this.totalExpense = res.totalExpense;
+        const total = this.totalIncome + this.totalExpense;
+        this.incomePercentage = (this.totalIncome / total) * 100;
+        this.expensePercentage = (this.totalExpense / total) * 100;
+      })
     }
   }
 

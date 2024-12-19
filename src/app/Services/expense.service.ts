@@ -15,6 +15,10 @@ export class ExpenseService {
      return this.http.post(`${this.apiUrl}/createExpense`, expenseData);
    }
 
+   expenseByDateRange(dateRange: any) {
+    return this.http.post(`${this.apiUrl}/expenseByDateRange`, dateRange);
+  }
+
    getAllExpenses(page: number, pageSize: number) {
      return this.http.get(`${this.apiUrl}/getAllExpenses`, {
       params: { page: page.toString(), pageSize: pageSize.toString() },
