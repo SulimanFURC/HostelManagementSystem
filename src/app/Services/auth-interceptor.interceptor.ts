@@ -71,6 +71,8 @@ private addToken(request: HttpRequest<unknown>, token?: string): HttpRequest<unk
                 Authorization: `Bearer ${authToken}`
             }
         });
+    } else {
+        console.warn('No authentication token found. Proceeding without Authorization header.');
     }
     return request;
 }
@@ -79,6 +81,7 @@ private addToken(request: HttpRequest<unknown>, token?: string): HttpRequest<unk
     if (error.status === 403) {
       console.error('Access Denied');
       // Add redirection or alert logic here
+      // Example: this.router.navigate(['/access-denied']);
     } else {
       console.error(`HTTP Error: ${error.status} - ${error.message}`);
     }

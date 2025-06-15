@@ -14,7 +14,15 @@ export class AuthService {
   private isLoginSubject = new BehaviorSubject<boolean>(this.getStoredLoginStatus());
   isLogin$ = this.isLoginSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // On service init, check token validity and update login state
+    const token = this.getToken();
+    if (token && !this.isTokenExpired(token)) {
+      this.setLoginStatus(true);
+    } else {
+      this.setLoginStatus(false);
+    }
+  }
 
   // Method to update the isLogin variable
   setLoginStatus(isLoggedIn: boolean) {
