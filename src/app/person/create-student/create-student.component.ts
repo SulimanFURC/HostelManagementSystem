@@ -1,6 +1,7 @@
 import { StudentService } from './../../Services/student.service';
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RoomService } from 'src/app/Services/room.service';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
 
@@ -17,10 +18,25 @@ export class CreateStudentComponent implements OnInit {
   allStudent: any;
   @Output() studentCreated = new EventEmitter<void>();
   @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
-  constructor(private fb: FormBuilder, private studentService: StudentService, private statusService: StatusServiceService) {  }
+  allRooms: any;
+
+  constructor(
+    private fb: FormBuilder, 
+    private studentService: StudentService, 
+    private statusService: StatusServiceService,
+    private roomSerivice: RoomService
+  ) {  }
 
   ngOnInit(): void {
     this.createStudentForm();
+    this.getAllRooms();
+  }
+
+  getAllRooms() {
+    this.roomSerivice.getAllRooms().subscribe((res) => {
+      this.allRooms = res;
+      console.log("All Rooms: ", this.allRooms);
+    })
   }
 
   getAllStudents() {
@@ -44,6 +60,9 @@ export class CreateStudentComponent implements OnInit {
       picture: [''],
       cnic_front: [''],
       cnic_back: [''],
+      roomNumber: [''],
+      securityFee: [''],
+      description: [''],
     })
   }
 
@@ -53,7 +72,9 @@ export class CreateStudentComponent implements OnInit {
     }
     const formData = {...this.studentForm.value}
     formData.admissionDate = this.formatDate(formData.admissionDate);
+    formData.roomNumber = parseInt(formData.roomNumber);
     console.log("Student Form Data: ", formData);
+    debugger;
     this.studentService.createStudent(formData).subscribe((res) => {
       console.log("Student Create: ", res)
       if(res.status){
@@ -62,7 +83,6 @@ export class CreateStudentComponent implements OnInit {
         this.studentForm.controls['cnic_front'].setValue('');
         this.studentForm.controls['cnic_back'].setValue('');
         this.getAllStudents();
-        debugger;
         this.myModalComponent.closeModal();
         this.statusService.showSuccess(res.message)
       } 
@@ -73,10 +93,10 @@ export class CreateStudentComponent implements OnInit {
 
   onFileChange(event: any, controlName: string) {
     const file = event.target.files[0];
-    const maxSize = 1 * 1024 * 1024; // 1MB
+    const maxSize = 5 * 1024 * 1024; // 5MB
     if(file){
       if (file.size > maxSize) {
-        this.fileError = 'File size exceeds 1MB. Please choose a smaller file.';
+        this.fileError = 'File size exceeds 5MB. Please choose a smaller file.';
         event.target.value = '';  // Clear the input field
         return;
       }

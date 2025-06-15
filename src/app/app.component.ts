@@ -3,6 +3,7 @@ import { AuthService } from './Services/auth.service';
 import { StatusModalComponent } from './shared/status-modal/status-modal.component';
 import { StatusServiceService } from './Services/status-service.service';
 import { LoaderServiceService } from './Services/loader-service.service';
+import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,9 @@ export class AppComponent implements AfterViewInit {
     this.auth.isLogin$.subscribe((res) => {
       this.isLogin = res;
     })
-    this.loading$ = this.loaderService.loading$;
+    setTimeout(() => {
+      this.loading$ = this.loaderService.loading$;
+    }, 1000);
   }
 
   ngAfterViewInit() {

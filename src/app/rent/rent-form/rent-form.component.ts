@@ -1,5 +1,7 @@
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import { StudentService } from 'src/app/Services/student.service';
+import { RentService } from 'src/app/Services/rent.service';
 
 @Component({
   selector: 'app-rent-form',
@@ -10,29 +12,51 @@ export class RentFormComponent implements OnInit {
 
   @Input() showForm?: boolean;
   
-  students = ['Suliman', 'Samir', 'Haider']
-
+  allStudents: any;
   rentForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder, 
+    private studentSerivce: StudentService,
+    private rentService: RentService
+  ) {
+
     this.rentForm = fb.group({
-      student_name: [this.students[0]],
-      payment_date: [''],
-      payment_type: ['cash'],
-      payment_status: ['unpaid'],
-      payment_amount: [''],
-      installment_1: [''],
-      installment_2: [''],
+      stdID: [],
+      RentPaidMonth: [],
+      Year: [],
+      RentStatus: ["Paid"],
+      RentType: ["Cash"],
+      PaidAmount: []
     });
   }
 
   onSubmit(): void {
     const formData = this.rentForm.value;
-    console.log('Form Data:', formData);
+    const selectedDate = new Date(formData.RentPaidMonth);
+    const month = selectedDate.getMonth() + 1;
+    const year = selectedDate.getFullYear();
+    this.rentForm.patchValue({
+      RentPaidMonth: month,
+      Year: year,
+    })
+    console.log('Form Data:', this.rentForm.value);
+    this.rentService.createRentRecord(this.rentForm.value).subscribe((res: any) => {
+      console.log("Rent Created: ", res);
+      this.rentForm.reset();
+    })
   }
 
   ngOnInit(): void {
     this.getCurrentDate();
+    this.getAllStudents();
+  }
+
+  getAllStudents() {
+    this.studentSerivce.getAllStudents().subscribe((res: any) => {
+      this.allStudents = res.data;
+      // console.log("Students: ",this.allStudents)
+    })
   }
 
   getCurrentDate() {

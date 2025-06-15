@@ -14,7 +14,15 @@ export class AuthService {
   private isLoginSubject = new BehaviorSubject<boolean>(this.getStoredLoginStatus());
   isLogin$ = this.isLoginSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // On service init, check token validity and update login state
+    const token = this.getToken();
+    if (token && !this.isTokenExpired(token)) {
+      this.setLoginStatus(true);
+    } else {
+      this.setLoginStatus(false);
+    }
+  }
 
   // Method to update the isLogin variable
   setLoginStatus(isLoggedIn: boolean) {
@@ -67,14 +75,19 @@ export class AuthService {
   // Refresh the token
   refreshToken(): Observable<any> {
     const refreshToken = this.getRefreshToken();
-    return this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken }).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-        }
-      })
+    if (!refreshToken) {
+        throw new Error('No refresh token available');
+    }
+
+    const payload = { token: refreshToken };
+    return this.http.post(`${this.apiUrl}/refresh-token`, payload).pipe(
+        tap((response: any) => {
+            if (response.token) {
+                localStorage.setItem('token', response.token); // Update token in storage
+            }
+        })
     );
-  }
+}
 
   // Check if the token is expired
   isTokenExpired(token: string): boolean {

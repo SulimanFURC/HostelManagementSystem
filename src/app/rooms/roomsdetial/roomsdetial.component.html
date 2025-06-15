@@ -27,7 +27,7 @@
         <tr>
           <th scope="col">Room Number</th>
           <th scope="col">Capacity</th>
-          <th scope="col">No of Students</th>
+          <!-- <th scope="col">No of Students</th> -->
           <th scope="col">Attach Bath</th>
           <th scope="col">Description</th>
         </tr>
@@ -36,7 +36,7 @@
         <tr *ngFor="let room of roomDetails; let i = index">
           <th scope="row">RN-{{room.roomID}}</th>
           <td>{{room.totalCapacity}}</td>
-          <td>{{room.occupied}}</td>
+          <!-- <td>{{room.occupied}}</td> -->
           <td> <span class="bg-success">{{room.attachBath}}</span></td>
           <td>{{room.description}}</td>
           <td>

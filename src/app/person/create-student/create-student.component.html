@@ -29,7 +29,7 @@
               <span class="details">Basic Rent</span>
               <input type="text" placeholder="7500" formControlName="basicRent" required>
             </div>
-            <div class="col-lg-4 col-md-6 form-input mb-3">
+            <div class="col-lg-3 col-md-6 form-input mb-3">
               <span class="details">Admission Date</span>
               <input type="text"
                 placeholder="Admission Date"
@@ -38,7 +38,7 @@
                 formControlName="admissionDate"
                 [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
             </div>
-            <div class="col-lg-4 col-md-6 form-input mb-3">
+            <div class="col-lg-3 col-md-6 form-input mb-3">
               <span class="details">Blood Group</span>
               <select name="blood_group" id="" formControlName="bloodGroup">
                 <option value="A+">A+</option>
@@ -51,9 +51,23 @@
                 <option value="AB-">AB-</option>
               </select>
             </div>
+            <div class="col-lg-3 col-md-6 form-input mb-3">
+              <span class="details">Room Number</span>
+              <select name="room_number" id="" formControlName="roomNumber">
+                <option *ngFor="let room of allRooms" [value]="room.roomID" >RN-{{room.roomID}}</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-md-6 form-input mb-3">
+              <span class="details">Security Fee</span>
+              <input type="text" placeholder="2500" formControlName="securityFee">
+            </div>
             <div class="col-md-12 form-input mb-3">
               <span class="details">Permanent Address <span class="tiny">(As per CNIC)</span></span>
               <input type="text" placeholder="House No 1 Rose Lane 5, New lalazar Rawalpindi" formControlName="address" required>
+            </div>
+            <div class="col-md-12 form-input mb-3">
+              <span class="details">Description <span class="tiny">(If any)</span></span>
+              <input type="text" placeholder="Add description if any (Security Fee deposited.)" formControlName="description">
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Front Pic</span>

@@ -34,25 +34,25 @@
             <th scope="col">Rent Type</th>
             <th scope="col">Basic Rent</th>
             <th scope="col">Paid Amount</th>
-            <th scope="col">Arrers</th>
+            <th scope="col">Dues</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of rentInfo; let i = index">
-            <th scope="row">{{i+1}}</th>
+            <th scope="row">{{(currentPage - 1) * pageSize + (i + 1)}}</th>
             <td>{{item.name}}</td>
-            <td>{{item.Month}}</td>
+            <td>{{getMonthName(item.RentPaidMonth)}}</td>
             <td>{{item.Year}}</td>
             <td><span [ngClass]="{
-              'bg-success': item.RentStatus === 'Paid',
+              'bg-success': item.RentStatus === 'Paid', 
               'bg-partial-light': item.RentStatus === 'Unpaid',
               'bg-danger-light': item.RentStatus === 'Installment'
             }">{{item.RentStatus}}</span></td>
             <td>{{item.RentType}}</td>
             <td>{{item.BasicRent}}</td>
             <td>{{item.PaidAmount}}</td>
-            <td>{{item.Arrers}}</td>
+            <td>{{item.Dues}}</td>
             <td>
               <div class="dropdown text-center">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,6 +62,7 @@
                   <li><a class="dropdown-item">View Profile</a></li>
                   <li><a class="dropdown-item">Rent Details</a></li>
                   <li><a class="dropdown-item" routerLink="invoice">Invoice</a></li>
+                  <li><a class="dropdown-item" (click)="deleteRent(item.RentID)">Delete</a></li>
                 </ul>
               </div>
             </td>
@@ -70,6 +71,19 @@
     </table>
     </div>
 </div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end mb-0 mt-3">
+    <li [class]="currentPage === 1 ? 'page-item disabled' : 'page-item'">
+      <a class="page-link" tabindex="-1" [attr.aria-disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">&laquo;</a>
+    </li>
+    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let index = index" [class.active]="currentPage === index + 1">
+      <a class="page-link" (click)="onPageChange(index + 1)">{{ index + 1 }}</a>
+    </li>
+    <li [class]="currentPage === totalPages ? 'page-item disabled' : 'page-item'">
+      <a class="page-link" [attr.aria-disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">&raquo;</a>
+    </li>
+  </ul>
+</nav>
 <app-my-modal>
     <app-rent-form></app-rent-form>
 </app-my-modal>
