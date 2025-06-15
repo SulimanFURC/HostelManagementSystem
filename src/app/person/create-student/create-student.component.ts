@@ -93,10 +93,10 @@ export class CreateStudentComponent implements OnInit {
 
   onFileChange(event: any, controlName: string) {
     const file = event.target.files[0];
-    const maxSize = 1 * 1024 * 1024; // 1MB
+    const maxSize = 5 * 1024 * 1024; // 5MB
     if(file){
       if (file.size > maxSize) {
-        this.fileError = 'File size exceeds 1MB. Please choose a smaller file.';
+        this.fileError = 'File size exceeds 5MB. Please choose a smaller file.';
         event.target.value = '';  // Clear the input field
         return;
       }
