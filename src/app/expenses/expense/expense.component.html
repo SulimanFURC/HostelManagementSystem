@@ -110,7 +110,12 @@
                         <td>Exp-{{exp.expID}}</td>
                         <td>{{exp.expName}}</td>
                         <td>{{exp.expAmount}}</td>
-                        <td>{{exp.expAttachment || 'No Attachment'}}</td>
+                        <td>
+                          <ng-container *ngIf="exp.expAttachment; else noAttachment">
+                            <a [href]="exp.expAttachment" download="attachment_{{exp.expID}}.jpg">Expense Attachment</a>
+                          </ng-container>
+                          <ng-template #noAttachment>No Attachment</ng-template>
+                        </td>
                         <td>{{exp.expPaymentMode}}</td>
                         <td>{{exp.expDate | date: 'MMM dd, yyyy'}}</td>
                         <td>{{exp.description}}</td>
