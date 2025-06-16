@@ -25,6 +25,10 @@ export class RentService {
     return this.http.delete(`${this.apiUrl}/deleteRental`, {body: rentId});
   }
 
+  updateRentalRecord(payload: any) {
+    return this.http.put(`${this.apiUrl}/updateRental`, payload);
+  }
+
   stuentRentalRecord(rentId: any) {
     return this.http.post(`${this.apiUrl}/getStudentRentDetails`, rentId);
   }

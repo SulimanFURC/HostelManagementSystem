@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AuthService } from './Services/auth.service';
-import { StatusModalComponent } from './shared/status-modal/status-modal.component';
 import { StatusServiceService } from './Services/status-service.service';
 import { LoaderServiceService } from './Services/loader-service.service';
-import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +11,6 @@ import { setTime } from 'ngx-bootstrap/chronos/utils/date-setters';
 export class AppComponent implements AfterViewInit {
   title = 'HostelManagement';
   isLogin?: boolean;
-  @ViewChild(StatusModalComponent) statusModalComponent!: StatusModalComponent;
   loading$: any;
 
   constructor(
@@ -29,6 +26,5 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.statusService.setModalComponent(this.statusModalComponent);
   }
 }

@@ -447,6 +447,10 @@ form {
     font-size: 12px;
 }
 
+.page-item .page-link {
+    cursor: pointer;
+}
+
 
 @media (max-width: 576px) { 
     .table_filters {

@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { RentService } from 'src/app/Services/rent.service';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { StudentService } from 'src/app/Services/student.service';
-import { StatusModalComponent } from 'src/app/shared/status-modal/status-modal.component';
 
 @Component({
   selector: 'app-student-profile',
@@ -16,7 +15,6 @@ export class StudentProfileComponent implements OnInit {
   studentRentRecord: any;
   totalAmountPaid: number = 0;
   totalAmountDue: number = 0;
-  @ViewChild(StatusModalComponent) statusModalComponent!: StatusModalComponent;
   monthNames: string[] = [
     'January',
     'February',

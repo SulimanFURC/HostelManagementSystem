@@ -10,13 +10,14 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, filter, take, finalize } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { LoaderServiceService } from './loader-service.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptorInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authService: AuthService, private loaderService: LoaderServiceService) {}
+  constructor(private authService: AuthService, private loaderService: LoaderServiceService, private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.loaderService.show();
@@ -24,7 +25,14 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     return next.handle(this.addToken(request)).pipe(
       catchError((error: any) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          return this.handle401Error(request, next);
+          // Only try to refresh if user is logged in and refresh token exists
+          if (this.authService.isAuthenticated() && this.authService.getRefreshToken()) {
+            return this.handle401Error(request, next);
+          } else {
+            this.authService.logout();
+            setTimeout(() => this.router.navigate(['/Auth']), 0);
+            return throwError(() => error);
+          }
         } else {
           this.handleNonAuthError(error);
           return throwError(() => error);
@@ -50,7 +58,8 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
             catchError((error) => {
                 this.isRefreshing = false;
                 this.authService.logout(); // Logout on refresh token failure
-                return throwError(() => error);
+                setTimeout(() => this.router.navigate(['/Auth']), 0); // Ensure navigation happens outside current context
+                return throwError(() => error); // Optionally, you can use EMPTY from 'rxjs' to stop further propagation
             })
         );
     } else {

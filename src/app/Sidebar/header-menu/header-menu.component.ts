@@ -28,11 +28,9 @@ export class HeaderMenuComponent implements OnInit {
     console.log("Logging out...");
     this.authService.logout();
     this.router.navigate(['/Auth']);
-    // You can add a delay or use a callback to ensure the logout operation is complete before navigation
-    // setTimeout(() => {
-    //   console.log("Navigating to Auth...");
-    //   this.router.navigate(['/Auth']);
-    // }, 500);
   }
 
+  navigateToProfile() {
+    this.router.navigate(['/Settings']);
+  }
 }

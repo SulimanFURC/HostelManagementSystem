@@ -1,23 +1,4 @@
 <div class="rooms_wrapper custom_card">
-  <div class="table_filters mb-3">
-    <div class="search_wrappper">
-      <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>      <input type="text" name="search" placeholder="Search">
-    </div>
-    <div class="filters">
-      <div [class.active_filter]="activeFilter === 'all'" (click)="setActiveFilter('all')" class="d-flex align-items-center gap-1 single_filter">
-        <span>All Rooms</span>
-        <span class="filter-all">52</span>
-      </div>
-      <div [class.active_filter]="activeFilter === 'active'" (click)="setActiveFilter('active')" class="d-flex align-items-center gap-1 single_filter">
-        <span>Active</span> 
-        <span class="filter-active">52</span>
-      </div>
-      <div [class.active_filter]="activeFilter === 'inactive'" (click)="setActiveFilter('inactive')" class="d-flex align-items-center gap-1 single_filter">
-        <span>InActive</span> 
-        <span class="filter-inactive">52</span>
-      </div>
-    </div>
-  </div>
   <div class="d-flex align-items-center justify-content-end mb-3">
     <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="create_btn">Create Room</button>
   </div>
@@ -37,7 +18,7 @@
           <th scope="row">RN-{{room.roomID}}</th>
           <td>{{room.totalCapacity}}</td>
           <!-- <td>{{room.occupied}}</td> -->
-          <td> <span class="bg-success">{{room.attachBath}}</span></td>
+          <td> <span [class]="room.attachBath === 'Yes' ? 'bg-success' : 'bg-danger-light'">{{room.attachBath}}</span></td>
           <td>{{room.description}}</td>
           <td>
             <div class="dropdown text-center">
@@ -85,5 +66,3 @@
       </div>
 </div>
 </app-my-modal>
-
-<app-status-modal></app-status-modal>

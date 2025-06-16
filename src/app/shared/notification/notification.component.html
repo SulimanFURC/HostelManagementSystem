@@ -1,0 +1,11 @@
+<div id="notifications-container">
+  <div *ngFor="let n of notifications" class="notification {{n.type}}" [@slideInOut]>
+    <div class="notification-icon" [innerHTML]="n.icon"></div>
+    <div class="notification-content">
+      <div class="notification-title">{{n.title}}</div>
+      <div class="notification-message">{{n.message}}</div>
+    </div>
+    <div class="notification-close" (click)="removeNotification(n)">×</div>
+    <div class="notification-progress"></div>
+  </div>
+</div>
