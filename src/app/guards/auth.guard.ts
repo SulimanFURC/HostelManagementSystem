@@ -16,28 +16,28 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
     const token = this.authService.getToken();
-    if (token && !this.authService.isTokenExpired(token)) {
-      // Token is valid
+    if (this.authService.isAuthenticated() && token && !this.authService.isTokenExpired(token)) {
+      // User is logged in and token is valid
       return of(true);
-    } else if (this.authService.getRefreshToken()) {
-      // Try to refresh token
+    } else if (this.authService.getRefreshToken() && this.authService.isAuthenticated()) {
+      // Try to refresh token only if user is logged in
       return this.authService.refreshToken().pipe(
         map((response: any) => {
           if (response.token) {
             return true;
           } else {
             this.authService.logout();
-            return this.router.createUrlTree(['Auth']);
+            return this.router.createUrlTree(['/Auth']);
           }
         }),
         catchError(() => {
           this.authService.logout();
-          return of(this.router.createUrlTree(['Auth']));
+          return of(this.router.createUrlTree(['/Auth']));
         })
       );
     } else {
       this.authService.logout();
-      return of(this.router.createUrlTree(['Auth']));
+      return of(this.router.createUrlTree(['/Auth']));
     }
   }
 }
