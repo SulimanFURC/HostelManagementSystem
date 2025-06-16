@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild } from
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RoomService } from 'src/app/Services/room.service';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
-import { StudentService } from 'src/app/Services/student.service';
 import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
 
 @Component({
@@ -12,7 +11,6 @@ import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
 })
 export class RoomsdetialComponent implements OnInit {
   roomDetails: any;
-  activeFilter: string = 'all';
   createRoomForm!: FormGroup;
   validform: boolean = false;
   isEditMode: boolean = false;
@@ -21,9 +19,6 @@ export class RoomsdetialComponent implements OnInit {
   @ViewChild('roomModal') roomModal!: MyModalComponent;
   allStudents: any;
 
-  setActiveFilter(filter: string): void {
-    this.activeFilter = filter;
-  }
   constructor(
     private roomService: RoomService, 
     private fb: FormBuilder, 
