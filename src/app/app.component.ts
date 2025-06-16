@@ -29,6 +29,5 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.statusService.setModalComponent(this.statusModalComponent);
   }
 }
