@@ -14,4 +14,12 @@ export class StatusServiceService {
   showError(message: string) {
     this.notificationService.showError(message);
   }
+
+  showInfo(message: string) {
+    this.notificationService,this.showInfo(message);
+  }
+
+  showWarning(message: string) {
+    this.notificationService.showWarning(message);
+  }
 }

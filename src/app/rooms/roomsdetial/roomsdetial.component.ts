@@ -4,7 +4,6 @@ import { RoomService } from 'src/app/Services/room.service';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { StudentService } from 'src/app/Services/student.service';
 import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
-import { StatusModalComponent } from 'src/app/shared/status-modal/status-modal.component';
 
 @Component({
   selector: 'app-roomsdetial',
@@ -20,7 +19,6 @@ export class RoomsdetialComponent implements OnInit {
   selectedRoomId: any;
   @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
   @ViewChild('roomModal') roomModal!: MyModalComponent;
-  @ViewChild(StatusModalComponent) statusModalComponent!: StatusModalComponent;
   allStudents: any;
 
   setActiveFilter(filter: string): void {
@@ -66,6 +64,7 @@ export class RoomsdetialComponent implements OnInit {
           this.getAllRoomsDetails();
           this.myModalComponent.closeModal();
           this.createRoomForm.reset();
+          this.statusService.showSuccess('Room Created Successfully');
         }
       }, err => {
         console.log(err);
@@ -75,6 +74,7 @@ export class RoomsdetialComponent implements OnInit {
         console.log("Room Update: ", res);
         this.roomModal.closeModal();
         this.createRoomForm.reset();
+        this.statusService.showSuccess('Room Updated Successfully');
         this.getAllRoomsDetails();
       })
     }
@@ -95,7 +95,7 @@ export class RoomsdetialComponent implements OnInit {
   deleteRoom(id: any) {
     this.roomService.deleteRoom(id).subscribe((res: any) => {
       console.log("Room Deleted: ", res);
-      this.statusService.showSuccess('Room Deleted Successfully');
+      this.statusService.showWarning('Room Deleted Successfully');
       this.getAllRoomsDetails();
     })
   }
