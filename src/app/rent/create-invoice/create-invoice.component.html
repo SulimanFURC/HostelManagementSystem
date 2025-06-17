@@ -1,131 +1,141 @@
-<div class="invoice-wrapper">
-    <div class="custom_card">
-        <div class="p-3">
-            <div class="page-header">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h5>Invoice Details</h5>
-                    <div class="list-btn">
-                        <button class="create_btn">Download</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="invoice-card">
-                        <div class="invoice-item invoice-item-one mt-3">
-                            <div class="row align-items-center">
-                                <div class="invoice-info text-end">
-                                    <h1 class="text-warning">UNPAID</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-
-                        <div class="invoice-item invoice-item-two">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="invoice-info mb-3">
-                                        <strong class="customer-text-one">Invoiced To<span>:</span> </strong>
-                                        <p class="invoice-details-two">
-                                            Samir Khan<br>
-                                            03025532270<br>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="invoice-info invoice-info2 mb-3">
-                                        <strong class="customer-text-one">Pay To<span>:</span></strong>
-                                        <p class="invoice-details-two">
-                                            Khan Hostel<br>
-                                            Rose Lane No 5, New Lalazar<br>
-                                            Rawalpindi
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="invoice-info invoice-info2 mb-3">
-                                        <strong class="customer-text-one">Payment Details<span>:</span></strong>
-
-                                        <p class="text-start invoice-details-two invoice-details mb-1">
-                                            <strong>Easypaisa (Samir)</strong><span>: </span>03411027477
-                                        </p>
-
-                                        <p class="text-start invoice-details-two invoice-details mb-1">
-                                            <strong>UBL (Samir)</strong><span>: </span>0123124578963
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="invoice-item invoice-table-wrap border-bottom pb-3">
-                            <div class="invoice-table-head">
-                                <h6>Monthly Record:</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-center table-hover mb-0">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th>Month</th>
-                                                    <th>Year</th>
-                                                    <th>Basic Rent</th>
-                                                    <th>Previous Month Dues</th>
-                                                    <th>Total Dues</th>
-                                                    <th>Total Amount Payable</th>
-                                                    <th>Amount Paid</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>January</td>
-                                                    <td>2023</td>
-                                                    <td>7500</td>
-                                                    <td>500</td>
-                                                    <td>8000</td>
-                                                    <td>8000</td>
-                                                    <td>7000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Feburary</td>
-                                                    <td>2023</td>
-                                                    <td>7500</td>
-                                                    <td>1000</td>
-                                                    <td>8500</td>
-                                                    <td>8500</td>
-                                                    <td>8500</td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="terms-conditions">
-                            <div class="row align-items-center justify-content-end mt-3 w-100">
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="invoice-total-card">
-                                        <div class="invoice-total-box">
-                                            <div class="invoice-total-inner">
-                                                <p>Month (January): <span>7500</span></p>
-                                                <p>Previous Month Dues:<span>1000</span></p>
-                                                <p>Total Dues: <span>8500</span></p>
-                                            </div>
-                                            <div class="invoice-total-footer">
-                                                <h4>Total Amount <span>{{ 8500 | currency:'PKR ':'symbol':'1.1-1' }}</span></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="invoice-container">
+    <header class="invoice-header">
+        <div class="header-left">
+            <div class="logo">City Comfort Hostel</div>
+            <p>123 University Road, Rawalpindi, Punjab</p>
+            <p>Pakistan</p>
         </div>
-    </div>
+        <div class="header-right">
+            <h1>INVOICE</h1>
+            <p><strong>Invoice #:</strong> INV-2025-06-0123</p>
+            <p><strong>Date:</strong> June 17, 2025</p>
+            <p><strong>Due Date:</strong> June 25, 2025</p>
+        </div>
+    </header>
+    <main>
+        <section class="billing-details">
+            <h3>Bill To:</h3>
+            <p><span>Student Name:</span> Ahmed Khan</p>
+            <p><span>Student ID:</span> CCH-9876</p>
+            <p><span>Room No:</span> 204-B</p>
+        </section>
+
+        <section class="invoice-summary">
+            <div class="section-title">Rent Summary for June 2025</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th class="text-right">Amount (PKR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Basic Monthly Rent</td>
+                        <td class="text-right">15,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Previous Dues (May 2025)</td>
+                        <td class="text-right">1,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="total-section">
+                <table class="total-table">
+                    <tr>
+                        <td>Subtotal</td>
+                        <td class="text-right">15,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>Dues</td>
+                        <td class="text-right">1,500.00</td>
+                    </tr>
+                    <tr class="grand-total">
+                        <td>Total Amount Due</td>
+                        <td class="text-right">16,500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Amount Paid by Student</td>
+                        <td class="text-right">15,000.00</td>
+                    </tr>
+                    <tr class="grand-total">
+                        <td>Balance Due</td>
+                        <td class="text-right">1,500.00</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="payment-history">
+            <div class="section-title">Previous Payment History</div>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Amount Paid (PKR)</th>
+                        <th>Payment Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025</td>
+                        <td>May</td>
+                        <td>13,500.00</td>
+                        <td>May 05, 2025</td>
+                        <td class="status-pending">Partial</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>April</td>
+                        <td>15,000.00</td>
+                        <td>April 07, 2025</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>March</td>
+                        <td>15,000.00</td>
+                        <td>March 04, 2025</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>February</td>
+                        <td>15,000.00</td>
+                        <td>February 06, 2025</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>January</td>
+                        <td>14,500.00</td>
+                        <td>January 08, 2025</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>2024</td>
+                        <td>December</td>
+                        <td>14,500.00</td>
+                        <td>December 05, 2024</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>2024</td>
+                        <td>November</td>
+                        <td>14,500.00</td>
+                        <td>November 07, 2024</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer class="invoice-footer">
+        <p><strong>Notes:</strong> Please pay any outstanding dues by the due date to avoid late fees.</p>
+        <p>Payment can be made via Bank Transfer, JazzCash, or at the front desk.</p>
+        <p>Thank you for your timely payment!</p>
+        <p><strong>City Comfort Hostel</strong> | Ph: +92 300 1234567 | Email: accounts@citycomforthostel.pk</p>
+    </footer>
 </div>
