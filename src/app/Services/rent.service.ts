@@ -15,10 +15,18 @@ export class RentService {
     return this.http.post(`${this.apiUrl}/createRental`, rentData);
   }
   
-  getAllRentRecords(page: number, pageSize: number) {
-    return this.http.get(`${this.apiUrl}/getAllRentals`, {
-      params: { page: page.toString(), pageSize: pageSize.toString() },
-    });
+  getAllRentRecords(page: number, pageSize: number, search?: string, rentStatus?: string) {
+    const params: any = {
+      page: page.toString(),
+      pageSize: pageSize.toString()
+    };
+    if (search) {
+      params.search = search;
+    }
+    if (rentStatus) {
+      params.rentStatus = rentStatus;
+    }
+    return this.http.get(`${this.apiUrl}/getAllRentals`, { params });
   }
 
   deleteRentRecord(rentId: any) {
