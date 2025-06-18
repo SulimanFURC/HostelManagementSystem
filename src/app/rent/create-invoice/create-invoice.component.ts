@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateInvoiceComponent implements OnInit {
 
+  invoiceData: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.invoiceData = JSON.parse(localStorage.getItem('invoiceData') || '{}');
   }
 
 }

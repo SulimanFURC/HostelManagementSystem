@@ -1,27 +1,27 @@
-<div class="invoice-container">
+<div class="d-flex align-items-center justify-content-center">
+    <div class="invoice-container">
     <header class="invoice-header">
         <div class="header-left">
-            <div class="logo">City Comfort Hostel</div>
-            <p>123 University Road, Rawalpindi, Punjab</p>
-            <p>Pakistan</p>
+            <div class="logo">{{invoiceData.hostelInfo.name}}</div>
+            <p>{{invoiceData.hostelInfo.address}}</p>
         </div>
         <div class="header-right">
             <h1>INVOICE</h1>
-            <p><strong>Invoice #:</strong> INV-2025-06-0123</p>
-            <p><strong>Date:</strong> June 17, 2025</p>
-            <p><strong>Due Date:</strong> June 25, 2025</p>
+            <p><strong>Invoice #:</strong> {{invoiceData.invoiceNumber}}</p>
+            <p><strong>Date:</strong> {{invoiceData.date}}</p>
+            <p><strong>Due Date:</strong> {{invoiceData.dueDate}}</p>
         </div>
     </header>
     <main>
         <section class="billing-details">
             <h3>Bill To:</h3>
-            <p><span>Student Name:</span> Ahmed Khan</p>
-            <p><span>Student ID:</span> CCH-9876</p>
-            <p><span>Room No:</span> 204-B</p>
+            <p><span>Student Name:</span> {{invoiceData.student.name}}</p>
+            <p><span>Student ID:</span> {{invoiceData.student.id}}</p>
+            <p><span>Room No:</span> {{invoiceData.student.roomNo}}</p>
         </section>
 
         <section class="invoice-summary">
-            <div class="section-title">Rent Summary for June 2025</div>
+            <div class="section-title">Rent Summary for {{invoiceData.month}} {{invoiceData.year}}</div>
             <table>
                 <thead>
                     <tr>
@@ -32,11 +32,11 @@
                 <tbody>
                     <tr>
                         <td>Basic Monthly Rent</td>
-                        <td class="text-right">15,000.00</td>
+                        <td class="text-right">{{invoiceData.basicRent}}</td>
                     </tr>
                     <tr>
                         <td>Previous Dues (May 2025)</td>
-                        <td class="text-right">1,500.00</td>
+                        <td class="text-right">{{invoiceData.previousMonthDues}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -44,23 +44,23 @@
                 <table class="total-table">
                     <tr>
                         <td>Subtotal</td>
-                        <td class="text-right">15,000.00</td>
+                        <td class="text-right">{{invoiceData.totalAmountPayable}}</td>
                     </tr>
                     <tr>
                         <td>Dues</td>
-                        <td class="text-right">1,500.00</td>
+                        <td class="text-right">{{invoiceData.totalDues}}</td>
                     </tr>
                     <tr class="grand-total">
                         <td>Total Amount Due</td>
-                        <td class="text-right">16,500.00</td>
+                        <td class="text-right">{{invoiceData.previousMonthDues}}</td>
                     </tr>
                     <tr>
                         <td>Amount Paid by Student</td>
-                        <td class="text-right">15,000.00</td>
+                        <td class="text-right">{{invoiceData.amountPaid}}</td>
                     </tr>
                     <tr class="grand-total">
                         <td>Balance Due</td>
-                        <td class="text-right">1,500.00</td>
+                        <td class="text-right">{{invoiceData.balanceDue}}</td>
                     </tr>
                 </table>
             </div>
@@ -136,6 +136,7 @@
         <p><strong>Notes:</strong> Please pay any outstanding dues by the due date to avoid late fees.</p>
         <p>Payment can be made via Bank Transfer, JazzCash, or at the front desk.</p>
         <p>Thank you for your timely payment!</p>
-        <p><strong>City Comfort Hostel</strong> | Ph: +92 300 1234567 | Email: accounts@citycomforthostel.pk</p>
+        <p><strong>City Comfort Hostel</strong> | Ph: +92 300 1234567 | Email: emailHERE</p>
     </footer>
+</div>
 </div>

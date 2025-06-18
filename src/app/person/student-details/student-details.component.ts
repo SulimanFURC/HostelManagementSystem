@@ -31,7 +31,7 @@ export class StudentDetailsComponent implements OnInit {
     let payload = {"stdID": id}
     this.studentService.deleteStudent(payload).subscribe((res: any) => {
       if(res){
-        this.statusService.showError(res.message);
+        this.statusService.showWarning(res.message);
       }
       console.log("Student Deleted: ", res);
       this.getAllStudents();
