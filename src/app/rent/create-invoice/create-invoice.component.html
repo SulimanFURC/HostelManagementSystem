@@ -68,65 +68,21 @@
 
         <section class="payment-history">
             <div class="section-title">Previous Payment History</div>
-            <table class="history-table">
+            <table class="history-table" *ngIf="invoiceData.paymentHistory && invoiceData.paymentHistory.length > 0">
                 <thead>
                     <tr>
                         <th>Year</th>
                         <th>Month</th>
                         <th>Amount Paid (PKR)</th>
-                        <th>Payment Date</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2025</td>
-                        <td>May</td>
-                        <td>13,500.00</td>
-                        <td>May 05, 2025</td>
-                        <td class="status-pending">Partial</td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td>April</td>
-                        <td>15,000.00</td>
-                        <td>April 07, 2025</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td>March</td>
-                        <td>15,000.00</td>
-                        <td>March 04, 2025</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td>February</td>
-                        <td>15,000.00</td>
-                        <td>February 06, 2025</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>2025</td>
-                        <td>January</td>
-                        <td>14,500.00</td>
-                        <td>January 08, 2025</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>2024</td>
-                        <td>December</td>
-                        <td>14,500.00</td>
-                        <td>December 05, 2024</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>2024</td>
-                        <td>November</td>
-                        <td>14,500.00</td>
-                        <td>November 07, 2024</td>
-                        <td class="status-paid">Paid</td>
+                    <tr *ngFor="let payment of invoiceData.paymentHistory">
+                        <td>{{payment.year}}</td>
+                        <td>{{payment.month}}</td>
+                        <td>{{payment.amountPaid}}</td>
+                        <td class="status-{{payment.status}}">{{payment.status | titlecase}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -136,7 +92,7 @@
         <p><strong>Notes:</strong> Please pay any outstanding dues by the due date to avoid late fees.</p>
         <p>Payment can be made via Bank Transfer, JazzCash, or at the front desk.</p>
         <p>Thank you for your timely payment!</p>
-        <p><strong>City Comfort Hostel</strong> | Ph: +92 300 1234567 | Email: emailHERE</p>
+        <p><strong>Khan Hostel</strong> | Ph: +92 300 5532270 | Email: {{contactEmail}}</p>
     </footer>
 </div>
 </div>

@@ -90,14 +90,9 @@ export class RentFormComponent implements OnInit, OnChanges {
         this.notificationService.showSuccess("Rent Updated Successfully", "Updated");
       });
     } else {
-      // Create mode (original logic)
-      let month = formData.RentPaidMonth;
-      let year = formData.Year;
-      if (typeof formData.RentPaidMonth === 'string' && formData.RentPaidMonth.includes('-')) {
-        const selectedDate = new Date(formData.RentPaidMonth);
-        month = selectedDate.getMonth() + 1;
-        year = selectedDate.getFullYear();
-      }
+      // Create mode (always extract month/year from date string if possible)
+      let month = formData.RentPaidMonth.getMonth() + 1; // getMonth() returns 0-11, so we add 1
+      let year = formData.RentPaidMonth.getFullYear();
       const createPayload = { ...formData, RentPaidMonth: month, Year: year };
       this.rentForm.get('RentType')?.enable();
       this.rentForm.get('stdID')?.enable();
