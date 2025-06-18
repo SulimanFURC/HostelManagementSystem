@@ -1,6 +1,7 @@
 import { StudentService } from './../../Services/student.service';
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/Services/notification.service';
 import { RoomService } from 'src/app/Services/room.service';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { MyModalComponent } from 'src/app/shared/my-modal/my-modal.component';
@@ -24,7 +25,8 @@ export class CreateStudentComponent implements OnInit {
     private fb: FormBuilder, 
     private studentService: StudentService, 
     private statusService: StatusServiceService,
-    private roomSerivice: RoomService
+    private roomSerivice: RoomService,
+    private notificationService: NotificationService
   ) {  }
 
   ngOnInit(): void {
@@ -48,19 +50,19 @@ export class CreateStudentComponent implements OnInit {
 
   createStudentForm() {
     this.studentForm = this.fb.group({
-      name: [''],
-      cnic: [''],
-      admissionDate: [''],
-      basicRent: [''],
-      contactNo: [''],
+      name: ['', Validators.required],
+      cnic: ['', Validators.required],
+      admissionDate: ['', Validators.required],
+      basicRent: ['', Validators.required],
+      contactNo: ['', Validators.required],
       bloodGroup: [''],
       address: [''],
-      secondaryContactNo: [''],
-      email: [''],
+      secondaryContactNo: ['', Validators.required],
+      email: ['', Validators.required],
       picture: [''],
       cnic_front: [''],
       cnic_back: [''],
-      roomNumber: [''],
+      roomNumber: ['', Validators.required],
       securityFee: [''],
       description: [''],
     })
@@ -68,24 +70,26 @@ export class CreateStudentComponent implements OnInit {
 
   onSubmit() {
     if(this.studentForm.invalid){
-      alert("Please fill the required fields...");
+      this.studentForm.markAllAsTouched();
+      this.notificationService.showWarning("Please fill all required fields.");
+      return;
     }
     const formData = {...this.studentForm.value}
     formData.admissionDate = this.formatDate(formData.admissionDate);
     formData.roomNumber = parseInt(formData.roomNumber);
     console.log("Student Form Data: ", formData);
-    debugger;
     this.studentService.createStudent(formData).subscribe((res) => {
-      console.log("Student Create: ", res)
       if(res.status){
         this.studentForm.reset();
         this.studentForm.controls['picture'].setValue('');
         this.studentForm.controls['cnic_front'].setValue('');
         this.studentForm.controls['cnic_back'].setValue('');
         this.getAllStudents();
-        this.myModalComponent.closeModal();
-        this.statusService.showSuccess(res.message)
-      } 
+        this.notificationService.showSuccess("Student created successfully.");
+        this.studentCreated.emit(); // Emit event to notify parent component
+      } else {
+        this.notificationService.showError("Failed to create student.");
+      }
     }, (error: any) => {
       console.log("Error: ", error);
     })

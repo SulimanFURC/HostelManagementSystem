@@ -8,26 +8,32 @@
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Full Name</span>
               <input type="text" placeholder="Full Name" formControlName="name" required>
+              <div *ngIf="studentForm.get('name')?.invalid && studentForm.get('name')?.touched" class="text-danger small">Name is required</div>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Email</span>
-              <input type="text" placeholder="email" formControlName="email" required>
+              <input type="text" placeholder="email" formControlName="email" required="">
+              <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched" class="text-danger small">Email is required</div>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Contact Number</span>
               <input type="text" placeholder="03025532270" formControlName="contactNo" required>
+              <div *ngIf="studentForm.get('contactNo')?.invalid && studentForm.get('contactNo')?.touched" class="text-danger small">Contact Number is required</div>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Secondary Contact Number</span>
               <input type="text" placeholder="03025532270" formControlName="secondaryContactNo" required>
+              <div *ngIf="studentForm.get('secondaryContactNo')?.invalid && studentForm.get('secondaryContactNo')?.touched" class="text-danger small">Secondary Contact Number is required</div>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">CNIC Number</span>
               <input type="text" placeholder="15302-5632222-8" formControlName="cnic" required>
+              <div *ngIf="studentForm.get('cnic')?.invalid && studentForm.get('cnic')?.touched" class="text-danger small">CNIC is required</div>
             </div>
             <div class="col-lg-4 col-md-6 form-input mb-3">
               <span class="details">Basic Rent</span>
               <input type="text" placeholder="7500" formControlName="basicRent" required>
+              <div *ngIf="studentForm.get('basicRent')?.invalid && studentForm.get('basicRent')?.touched" class="text-danger small">Basic Rent is required</div>
             </div>
             <div class="col-lg-3 col-md-6 form-input mb-3">
               <span class="details">Admission Date</span>
@@ -37,6 +43,7 @@
                 bsDatepicker
                 formControlName="admissionDate"
                 [bsConfig]="{ adaptivePosition: true, containerClass: 'theme-blue' }">
+              <div *ngIf="studentForm.get('admissionDate')?.invalid && studentForm.get('admissionDate')?.touched" class="text-danger small">Admission Date is required</div>
             </div>
             <div class="col-lg-3 col-md-6 form-input mb-3">
               <span class="details">Blood Group</span>
@@ -56,6 +63,7 @@
               <select name="room_number" id="" formControlName="roomNumber">
                 <option *ngFor="let room of allRooms" [value]="room.roomID" >RN-{{room.roomID}}</option>
               </select>
+              <div *ngIf="studentForm.get('roomNumber')?.invalid && studentForm.get('roomNumber')?.touched" class="text-danger small">Room Number is required</div>
             </div>
             <div class="col-lg-3 col-md-6 form-input mb-3">
               <span class="details">Security Fee</span>
@@ -63,7 +71,7 @@
             </div>
             <div class="col-md-12 form-input mb-3">
               <span class="details">Permanent Address <span class="tiny">(As per CNIC)</span></span>
-              <input type="text" placeholder="House No 1 Rose Lane 5, New lalazar Rawalpindi" formControlName="address" required>
+              <input type="text" placeholder="House No 1 Rose Lane 5, New lalazar Rawalpindi" formControlName="address">
             </div>
             <div class="col-md-12 form-input mb-3">
               <span class="details">Description <span class="tiny">(If any)</span></span>
@@ -87,7 +95,7 @@
           </div>
           <div class="row">
             <div class="d-flex">
-              <button type="submit" class="create_btn">Submit</button>
+              <button type="submit" class="create_btn" [disabled]="studentForm.invalid">Submit</button>
             </div>
           </div>
         </form>

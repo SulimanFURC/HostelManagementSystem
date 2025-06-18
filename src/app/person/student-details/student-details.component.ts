@@ -13,6 +13,9 @@ export class StudentDetailsComponent implements OnInit {
 
   activeFilter: string = 'all';
   allStudent: any;
+  @ViewChild('createStudentModal') createStudentModal!: MyModalComponent;
+
+
   constructor(private router: Router, private studentService: StudentService, private statusService: StatusServiceService) { }
 
   ngOnInit(): void {
@@ -52,6 +55,10 @@ export class StudentDetailsComponent implements OnInit {
 
   setActiveFilter(filter: string): void {
     this.activeFilter = filter;
+  }
+  closeCreateStudentModal() {
+    this.createStudentModal.closeModal()
+    this.getAllStudents();
   }
 
 }

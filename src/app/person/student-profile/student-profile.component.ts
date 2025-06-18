@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 import { RentService } from 'src/app/Services/rent.service';
 import { StatusServiceService } from 'src/app/Services/status-service.service';
 import { StudentService } from 'src/app/Services/student.service';
@@ -31,7 +32,7 @@ export class StudentProfileComponent implements OnInit {
   ];
   
   constructor(
-    private statusService: StatusServiceService, 
+    private statusService: NotificationService, 
     private route: ActivatedRoute,
     private rentService: RentService
   ) { }
@@ -49,7 +50,7 @@ export class StudentProfileComponent implements OnInit {
             this.statusService.showError('Error decoding student data:')
           }
       } else {
-          console.log('No data found in query params');
+          this.statusService.showError('No data found in query params');
       }
     });
     // this.getStudentRentalRecords()
@@ -75,9 +76,9 @@ export class StudentProfileComponent implements OnInit {
     })
   }
 
-  valueChange(value: any) {
-    return Math.abs(value);
-  }
+  // valueChange(value: any) {
+  //   return Math.abs(value);
+  // }
   
   getMonthName(monthNumber: number): string {
     return this.monthNames[monthNumber - 1];
