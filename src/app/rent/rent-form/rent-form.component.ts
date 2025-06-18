@@ -36,38 +36,72 @@ export class RentFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['rentData'] && this.rentData) {
+      // If RentPaidMonth is a number, convert to date string for datepicker
+      let rentPaidMonth = this.rentData.RentPaidMonth;
+      let year = this.rentData.Year;
+      let rentPaidMonthForForm = rentPaidMonth;
+      if (typeof rentPaidMonth === 'number' && typeof year === 'number') {
+        rentPaidMonthForForm = `${year}-${rentPaidMonth.toString().padStart(2, '0')}-01`;
+      }
       this.rentForm.patchValue({
         stdID: this.rentData.stdID,
-        RentPaidMonth: this.rentData.RentPaidMonth,
+        RentPaidMonth: rentPaidMonthForForm,
         Year: this.rentData.Year,
         RentStatus: this.rentData.RentStatus,
         RentType: this.rentData.RentType,
         PaidAmount: this.rentData.PaidAmount
       });
+      // Disable RentType and stdID in update mode
+      this.rentForm.get('RentType')?.disable();
+      this.rentForm.get('stdID')?.disable();
+    } else {
+      // Enable controls in create mode
+      this.rentForm.get('RentType')?.enable();
+      this.rentForm.get('stdID')?.enable();
     }
   }
 
   onSubmit(): void {
-    const formData = this.rentForm.value;
-    const selectedDate = new Date(formData.RentPaidMonth);
-    const month = selectedDate.getMonth() + 1;
-    const year = selectedDate.getFullYear();
-    this.rentForm.patchValue({
-      RentPaidMonth: month,
-      Year: year,
-    });
+    const formData = this.rentForm.getRawValue(); // getRawValue to include disabled fields
+    let payload: any = {
+      rentID: this.rentData?.rentID,
+      RentPaidMonth: this.rentData?.RentPaidMonth,
+      Year: this.rentData?.Year,
+      RentType: this.rentData?.RentType,
+      PaidAmount: this.rentData?.PaidAmount
+    };
+
+    // If date changed, extract month/year
+    if (formData.RentPaidMonth && typeof formData.RentPaidMonth === 'string' && formData.RentPaidMonth.includes('-')) {
+      const selectedDate = new Date(formData.RentPaidMonth);
+      payload.RentPaidMonth = selectedDate.getMonth() + 1;
+      payload.Year = selectedDate.getFullYear();
+    }
+    // If PaidAmount changed
+    if (formData.PaidAmount !== this.rentData?.PaidAmount) {
+      payload.PaidAmount = formData.PaidAmount;
+    }
+
     if (this.rentData && this.rentData.rentID) {
       // Update mode
-      const updatePayload = { ...this.rentForm.value, rentID: this.rentData.rentID };
-      this.rentService.updateRentalRecord(updatePayload).subscribe((res: any) => {
+      this.rentService.updateRentalRecord(payload).subscribe((res: any) => {
         this.rentForm.reset();
         this.formSuccess.emit();
         this.notificationService.showSuccess("Rent Updated Successfully", "Updated");
       });
     } else {
-      // Create mode
-      this.rentService.createRentRecord(this.rentForm.value).subscribe((res: any) => {
-        console.log("Rent Created: ", res);
+      // Create mode (original logic)
+      let month = formData.RentPaidMonth;
+      let year = formData.Year;
+      if (typeof formData.RentPaidMonth === 'string' && formData.RentPaidMonth.includes('-')) {
+        const selectedDate = new Date(formData.RentPaidMonth);
+        month = selectedDate.getMonth() + 1;
+        year = selectedDate.getFullYear();
+      }
+      const createPayload = { ...formData, RentPaidMonth: month, Year: year };
+      this.rentForm.get('RentType')?.enable();
+      this.rentForm.get('stdID')?.enable();
+      this.rentService.createRentRecord(createPayload).subscribe((res: any) => {
         this.rentForm.reset();
         this.formSuccess.emit();
         this.notificationService.showSuccess("Rent Received Successfully", "Success");

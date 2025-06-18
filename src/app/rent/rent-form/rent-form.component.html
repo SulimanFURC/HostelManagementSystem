@@ -5,7 +5,7 @@
           <div class="user__details row">
             <div class="input__box col-lg-6 mb-3">
               <span class="details">Select Person</span>
-              <select formControlName="stdID">
+              <select formControlName="stdID" [disabled]="rentData && rentData.rentID">
                 <option *ngFor="let student of allStudents" [value]="student.stdID">{{student.name}}</option>
               </select>
             </div>
@@ -20,7 +20,7 @@
             </div>
             <div class="input__box col-lg-6 mb-3">
               <span class="details">Payment Type</span>
-              <select name="payment_type" id="payment_type" formControlName="RentType">
+              <select name="payment_type" id="payment_type" formControlName="RentType" [disabled]="rentData && rentData.rentID">
                 <option value="cash">Cash</option>
                 <option value="online">Online</option>
               </select>

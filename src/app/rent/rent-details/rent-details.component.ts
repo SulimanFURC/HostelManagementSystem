@@ -56,6 +56,10 @@ export class RentDetailsComponent implements OnInit {
     })
   }
 
+  rentCreated() {
+    this.rentModal.closeModal();
+    this.getAllRents(this.currentPage, this.pageSize);
+  }
   getAllRents(page: number, pageSize: number, search: string = '', rentStatus: string = '') {
     this.rentService.getAllRentRecords(page, pageSize, search, rentStatus).subscribe((res: any) => {
       this.rentInfo = res.data;
@@ -99,13 +103,27 @@ export class RentDetailsComponent implements OnInit {
 
   updateRent(item: any) {
     this.selectedRent = {...item, rentID: item.RentID};
+    console.log("Selected Rent for Update: ", this.selectedRent);
     setTimeout(() => {
       this.rentModal.openModal();
     });
   }
 
-  navigateToInvoice() {
-    this.router.navigate(['Rent/invoice']);
+  navigateToInvoice(id: number) {
+    let payload = {
+      stdID : id
+    }
+    this.rentService.studentInvoicez(payload).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('invoiceData', JSON.stringify(res));
+        this.router.navigate(['Rent/invoice']);
+      },
+      error: (error: any) => {
+        console.error("Error generating invoice: ", error);
+        this.notificationService.showError(error.error.message, "Error");
+      }
+    });
+    
   }
   
   setActiveFilter(filter: string): void {

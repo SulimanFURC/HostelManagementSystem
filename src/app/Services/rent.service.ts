@@ -40,4 +40,8 @@ export class RentService {
   stuentRentalRecord(rentId: any) {
     return this.http.post(`${this.apiUrl}/getStudentRentDetails`, rentId);
   }
+
+  studentInvoicez(payload: any) {
+    return this.http.post(`${this.apiUrl}/invoice`, payload);
+  }
 }

@@ -57,7 +57,7 @@
                    <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
                 </a>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                  <li><a class="dropdown-item"  (click)="navigateToInvoice()">Invoice</a></li>
+                  <li><a class="dropdown-item"  (click)="navigateToInvoice(item.stdID)">Invoice</a></li>
                   <li><a class="dropdown-item" (click)="updateRent(item)">Update</a></li>
                   <li><a class="dropdown-item" (click)="deleteRent(item.RentID)">Delete</a></li>
                 </ul>
@@ -82,6 +82,6 @@
   </ul>
 </nav>
 <app-my-modal #rentModal>
-    <app-rent-form (formSuccess)="rentModal.closeModal()" [rentData]="selectedRent"></app-rent-form>
+    <app-rent-form (formSuccess)="rentCreated()" [rentData]="selectedRent"></app-rent-form>
 </app-my-modal>
 
