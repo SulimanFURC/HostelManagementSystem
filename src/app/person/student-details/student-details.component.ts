@@ -13,6 +13,7 @@ export class StudentDetailsComponent implements OnInit {
 
   activeFilter: string = 'all';
   allStudent: any;
+  studentToEdit: any = null;
   @ViewChild('createStudentModal') createStudentModal!: MyModalComponent;
 
 
@@ -56,8 +57,15 @@ export class StudentDetailsComponent implements OnInit {
   setActiveFilter(filter: string): void {
     this.activeFilter = filter;
   }
+  openCreateStudentModalForEdit(student: any) {
+    this.studentToEdit = { ...student };
+    setTimeout(() => {
+      this.createStudentModal.openModal();
+    }, 0);
+  }
   closeCreateStudentModal() {
-    this.createStudentModal.closeModal()
+    this.createStudentModal.closeModal();
+    this.studentToEdit = null;
     this.getAllStudents();
   }
 

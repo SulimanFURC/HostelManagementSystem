@@ -1,5 +1,5 @@
 import { StudentService } from './../../Services/student.service';
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/Services/notification.service';
 import { RoomService } from 'src/app/Services/room.service';
@@ -20,6 +20,8 @@ export class CreateStudentComponent implements OnInit {
   @Output() studentCreated = new EventEmitter<void>();
   @ViewChild(MyModalComponent) myModalComponent!: MyModalComponent;
   allRooms: any;
+  @Input() studentToEdit: any = null;
+  isEditMode: boolean = false;
 
   constructor(
     private fb: FormBuilder, 
@@ -32,6 +34,15 @@ export class CreateStudentComponent implements OnInit {
   ngOnInit(): void {
     this.createStudentForm();
     this.getAllRooms();
+    if (this.studentToEdit) {
+      this.patchFormForEdit();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['studentToEdit'] && this.studentToEdit) {
+      this.patchFormForEdit();
+    }
   }
 
   getAllRooms() {
@@ -68,6 +79,29 @@ export class CreateStudentComponent implements OnInit {
     })
   }
 
+  patchFormForEdit() {
+    this.isEditMode = true;
+    const patchData = { ...this.studentToEdit };
+    // Patch only known fields
+    this.studentForm.patchValue({
+      name: patchData.name,
+      cnic: patchData.cnic,
+      admissionDate: patchData.admissionDate,
+      basicRent: patchData.basicRent,
+      contactNo: patchData.contactNo,
+      bloodGroup: patchData.bloodGroup,
+      address: patchData.address,
+      secondaryContactNo: patchData.secondaryContactNo,
+      email: patchData.email,
+      picture: patchData.picture,
+      cnic_front: patchData.cnic_front,
+      cnic_back: patchData.cnic_back,
+      roomNumber: patchData.roomNumber,
+      securityFee: patchData.securityFee,
+      description: patchData.description,
+    });
+  }
+
   onSubmit() {
     if(this.studentForm.invalid){
       this.studentForm.markAllAsTouched();
@@ -77,22 +111,39 @@ export class CreateStudentComponent implements OnInit {
     const formData = {...this.studentForm.value}
     formData.admissionDate = this.formatDate(formData.admissionDate);
     formData.roomNumber = parseInt(formData.roomNumber);
-    console.log("Student Form Data: ", formData);
-    this.studentService.createStudent(formData).subscribe((res) => {
-      if(res.status){
+    if (this.isEditMode && this.studentToEdit && this.studentToEdit.stdID) {
+      formData.studentId = this.studentToEdit.stdID;
+      delete formData.roomNumber;
+      delete formData.description;
+      this.studentService.updateStudentRecord(formData).subscribe((res) => {
         this.studentForm.reset();
-        this.studentForm.controls['picture'].setValue('');
-        this.studentForm.controls['cnic_front'].setValue('');
-        this.studentForm.controls['cnic_back'].setValue('');
+        this.isEditMode = false;
+        this.studentToEdit = null;
         this.getAllStudents();
-        this.notificationService.showSuccess("Student created successfully.");
-        this.studentCreated.emit(); // Emit event to notify parent component
-      } else {
-        this.notificationService.showError("Failed to create student.");
-      }
-    }, (error: any) => {
-      console.log("Error: ", error);
-    })
+        this.notificationService.showSuccess("Student updated successfully.");
+        this.studentCreated.emit();
+        this.myModalComponent.closeModal();
+      }, (error: any) => {
+        console.log("Error: ", error);
+      })
+    } else {
+      this.studentService.createStudent(formData).subscribe((res) => {
+        if(res.status){
+          this.studentForm.reset();
+          this.studentForm.controls['picture'].setValue('');
+          this.studentForm.controls['cnic_front'].setValue('');
+          this.studentForm.controls['cnic_back'].setValue('');
+          this.getAllStudents();
+          this.notificationService.showSuccess("Student created successfully.");
+          this.studentCreated.emit();
+          this.myModalComponent.closeModal();
+        } else {
+          this.notificationService.showError("Failed to create student.");
+        }
+      }, (error: any) => {
+        console.log("Error: ", error);
+      })
+    }
   }
 
   onFileChange(event: any, controlName: string) {

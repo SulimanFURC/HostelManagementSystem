@@ -25,7 +25,7 @@ export class StudentService {
   }
 
   updateStudentRecord(studentData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/updateStudent`, studentData);
+    return this.http.put<any>(`${this.apiUrl}/updateStudent`, studentData);
   }
 
   deleteStudent(stdId: any): Observable<any> {

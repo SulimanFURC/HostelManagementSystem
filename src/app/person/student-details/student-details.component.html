@@ -28,11 +28,11 @@
           <td>{{std.bloodGroup}}</td>
           <td>
             <div class="dropdown text-center">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                  <img src="../../../assets/Icons/vertical-dots.png" alt="" style="width: 15px">
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Edit</a></li>
+                <li><a class="dropdown-item" (click)="openCreateStudentModalForEdit(std)">Edit</a></li>
                 <li><a class="dropdown-item" (click)="deleteStudent(std.stdID)">Delete</a></li>
                 <li><a class="dropdown-item" (click)="studentProfile(std.stdID)">View Profile</a></li>
               </ul>
@@ -44,6 +44,5 @@
    </div>
 </div>
 <app-my-modal #createStudentModal>
-  <app-create-student (studentCreated)="closeCreateStudentModal()"></app-create-student>
+  <app-create-student [studentToEdit]="studentToEdit" (studentCreated)="closeCreateStudentModal()"></app-create-student>
 </app-my-modal>
-  
